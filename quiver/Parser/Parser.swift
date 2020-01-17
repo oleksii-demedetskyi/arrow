@@ -27,9 +27,20 @@ extension TokenStream {
     /// Parse whole action definition
     mutating func parseActionDefinition() throws -> ActionDefinition? {
         guard parseKeyword(.action) else { return nil }
-        guard let id = parseIdentifier() else { throw ActionIdentifierExpected() }
         
-        return ActionDefinition(identifier: id)
+        let identifiers = parseIdentifierSequence()
+        guard !identifiers.isEmpty else { throw ActionIdentifierExpected() }
+        
+        return ActionDefinition(identifier: identifiers)
+    }
+    
+    mutating func parseIdentifierSequence() -> [Substring] {
+        var result = [] as [Substring]
+        while let item = parseIdentifier() {
+            result.append(item)
+        }
+        
+        return result
     }
     
     struct StateNameIdentifierExpected: Error {}
@@ -99,23 +110,42 @@ extension TokenStream {
     mutating func parseTestDefinition() throws -> TestDefinition? {
         guard parseKeyword(.test) else { return nil }
         
-        var identifiers = [] as [Substring]
-        while let identifier = parseIdentifier() {
-            identifiers.append(identifier)
+        let identifiers = parseIdentifierSequence()
+        
+        guard parseKeyword(.for) else { throw TestForKeywordExpected() }
+        guard let state = parseIdentifier() else { throw TestStateExpected() }
+        
+        guard parseKeyword(.openCurlyBrace) else { throw ExpressionsBlockOpenBraceExpected() }
+        
+        var expressions = [] as [TestExpression]
+        while let expression = try parseTestExpression() {
+            expressions.append(expression)
         }
         
-        guard identifiers.isEmpty == false else { throw TestNameExpected() }
-        guard parseKeyword(.for) else { throw TestForKeywordExpected() }
-        guard let _ = parseIdentifier() else { throw TestStateExpected() }
+        guard parseKeyword(.closedCurlyBrace) else { throw ExpressionsBlockCloseBraceExpected() }
         
-        throw NotImplemented()
+        return TestDefinition(name: identifiers, state: state, expressions: expressions)
+    }
+    
+    /// Value is a single identifier that can be prefixed with plus or minus
+    mutating func parseValue() -> ValueDefinition? {
+        var sign = nil as ValueDefinition.Sign?
+        if parseKeyword(.minus) { sign = .minus }
+        else if parseKeyword(.plus) { sign = .plus }
+        
+        guard let value = parseIdentifier() else {
+            if sign != nil { rollback() }
+            return nil
+        }
+        
+        return ValueDefinition(sign: sign, value: value)
     }
     
     mutating func parseStateAssertExpression() throws -> StateAssertExpression? {
         guard parseKeyword(.assert) else { return nil }
         guard parseKeyword(.state) else { return nil } // TODO: throw or rollback
         guard parseKeyword(.is) else { return nil }
-        guard let value = parseIdentifier() else { return nil }
+        guard let value = parseValue() else { return nil }
         
         return StateAssertExpression(value: value)
     }
@@ -123,7 +153,7 @@ extension TokenStream {
     mutating func parseStateAssignmentExpression() throws -> StateAssignmentExpression? {
         guard parseKeyword(.state) else { return nil }
         guard parseKeyword(.equals) else { return nil }
-        guard let value = parseIdentifier() else { return nil }
+        guard let value = parseValue() else { return nil }
         
         return StateAssignmentExpression(value: value)
     }

@@ -11,11 +11,17 @@ enum TestExpression: Equatable {
 }
 
 struct StateAssertExpression: Equatable {
-    let value: Substring
+    let value: ValueDefinition
+}
+
+struct ValueDefinition: Equatable {
+    enum Sign { case plus, minus }
+    let sign: Sign?
+    let value: Substring // Can be simple identifier or composite one.
 }
 
 struct StateAssignmentExpression: Equatable {
-    let value: Substring
+    let value: ValueDefinition
 }
 
 struct ReduceExpression: Equatable {

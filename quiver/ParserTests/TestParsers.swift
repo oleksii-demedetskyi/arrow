@@ -44,7 +44,7 @@ class TestParser: XCTestCase {
         ])
         
         let definition = try stream.parseActionDefinition()
-        XCTAssertEqual(definition?.identifier, "Increment")
+        XCTAssertEqual(definition?.identifier, ["Increment"])
     }
     
     func testActionDefinitionNotDetectAction() {
@@ -98,7 +98,7 @@ class TestParser: XCTestCase {
         
         let definition = try stream.parseStateAssertExpression()
         
-        XCTAssertEqual(definition?.value, "0")
+        XCTAssertEqual(definition?.value.value, "0")
     }
     
     func testStateAssignmentParserSuccess() throws {
@@ -108,7 +108,7 @@ class TestParser: XCTestCase {
         
         let definition = try stream.parseStateAssignmentExpression()
         
-        XCTAssertEqual(definition?.value, "10")
+        XCTAssertEqual(definition?.value.value, "10")
     }
     
     func testReduceExpressionSuccess() throws {
@@ -135,9 +135,46 @@ class TestParser: XCTestCase {
             .assert, .state, .is, .identifier("11")
         ])
         
-        XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: "0")))
-        XCTAssertEqual(try stream.parseTestExpression(), .assignState(.init(value: "10")))
+        XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: .init(sign: nil, value: "0"))))
+        XCTAssertEqual(try stream.parseTestExpression(), .assignState(.init(value: .init(sign: nil, value: "10"))))
         XCTAssertEqual(try stream.parseTestExpression(), .reduceExpression(.init(action: "Increment")))
-        XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: "11")))
+        XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: .init(sign: nil, value: "11"))))
+    }
+    
+    func testUnnamedTest() throws {
+        var stream = TokenStream(stream: [
+            .test, .for, .identifier("Counter"),
+            .openCurlyBrace,
+            .reduce, .identifier("Increment"),
+            .reduce, .identifier("Decrement"),
+            .assert, .state, .is, .identifier("-1"), // Negative number will come shortly,
+            .closedCurlyBrace
+        ])
+        
+        let definition = try stream.parseTestDefinition()
+        
+        XCTAssertEqual(definition?.state, "Counter")
+        XCTAssertEqual(definition?.name, [])
+    }
+    
+    func testValueDefinitionParser() {
+        var stream = TokenStream(stream: [
+            .identifier("100"),
+            .minus, .identifier("0"),
+            .plus, .identifier("asd")
+        ])
+        
+        XCTAssertEqual(stream.parseValue(), ValueDefinition(sign: nil, value: "100"))
+        XCTAssertEqual(stream.parseValue(), ValueDefinition(sign: .minus, value: "0"))
+        XCTAssertEqual(stream.parseValue(), ValueDefinition(sign: .plus, value: "asd"))
+    }
+    
+    func testValueDefinitionParserRollback() {
+        var stream = TokenStream(stream: [
+            .minus, .test
+        ])
+        
+        XCTAssertNil(stream.parseValue())
+        XCTAssertEqual(stream.current, .minus)
     }
 }

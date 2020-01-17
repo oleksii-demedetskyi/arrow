@@ -5,6 +5,9 @@
       location = "group:counter.arrow">
    </FileRef>
    <FileRef
+      location = "group:Stream-3.md">
+   </FileRef>
+   <FileRef
       location = "group:quiver/quiver.xcodeproj">
    </FileRef>
 </Workspace>
