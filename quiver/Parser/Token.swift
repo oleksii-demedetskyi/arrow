@@ -1,4 +1,4 @@
-public enum Token: Equatable {
+public enum Token: Equatable, Hashable {
     // Keywords
     case action
     case state

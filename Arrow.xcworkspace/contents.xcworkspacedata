@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/ademedetskii/Projects/arrow/quiver/Parser/ActionDefinition.swift">
-   </FileRef>
-   <FileRef
       location = "group:counter.arrow">
    </FileRef>
    <FileRef
