@@ -177,4 +177,38 @@ class TestParser: XCTestCase {
         XCTAssertNil(stream.parseValue())
         XCTAssertEqual(stream.current, .minus)
     }
+    
+    func testActionWithTypeParserSucces() throws {
+        /// `action Increment by value: Int`
+        var stream = TokenStream(stream: [
+            .action, .identifier("Increment"), .identifier("by"), .identifier("value"),
+            .colon, .identifier("Int")
+        ])
+        
+        let definition = try stream.parseActionDefinition()
+        
+        XCTAssertEqual(definition?.identifier, ["Increment", "by", "value"])
+        XCTAssertEqual(definition?.type, "Int")
+    }
+    
+    func testPartialReducerDefinition() throws {
+        var stream = TokenStream(stream: [
+            .reduce, .identifier("Counter"), .openCurlyBrace,
+                .with, .identifier("Increment"), .identifier("by"), .identifier("value"),
+                    .openCurlyBrace, .state, .plus, .equals, .action, .closedCurlyBrace,
+                .with, .identifier("Decrement"), .identifier("by"), .identifier("value"),
+                    .openCurlyBrace, .state, .minus,. equals, .action, .closedCurlyBrace,
+            .closedCurlyBrace
+        ])
+        
+        let definition = try stream.parseStateReducersDefinition()
+        
+        XCTAssertNotNil(definition)
+        XCTAssertEqual(definition?.state, "Counter")
+        XCTAssertEqual(definition?.reducers.count, 2)
+        
+        let reducers = definition!.reducers
+        
+        XCTAssertEqual(reducers.first!.action, ["Increment", "by", "value"])
+    }
 }

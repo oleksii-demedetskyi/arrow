@@ -10,5 +10,5 @@ However, we are moving closer to the end of file.
 In next episodes we will look at 
 
 - action with types (`action Increment by value: Int`)
-- scoped reducers
+- scoped reducer
 

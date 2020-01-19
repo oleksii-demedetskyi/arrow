@@ -23,6 +23,7 @@ extension TokenStream {
     }
     
     struct ActionIdentifierExpected: Error {}
+    struct ActionTypeIdentifierExprected: Error {}
     
     /// Parse whole action definition
     mutating func parseActionDefinition() throws -> ActionDefinition? {
@@ -31,7 +32,12 @@ extension TokenStream {
         let identifiers = parseIdentifierSequence()
         guard !identifiers.isEmpty else { throw ActionIdentifierExpected() }
         
-        return ActionDefinition(identifier: identifiers)
+        if parseKeyword(.colon) {
+            guard let type = parseIdentifier() else { throw ActionTypeIdentifierExprected()}
+            return ActionDefinition(identifier: identifiers, type: type)
+        } else {
+            return ActionDefinition(identifier: identifiers, type: nil)
+        }
     }
     
     mutating func parseIdentifierSequence() -> [Substring] {
@@ -94,13 +100,22 @@ extension TokenStream {
         return expressions
     }
     
+    /// Represents parsing of single expressson.
+    /// Examples of valid expressions:
+    /// `state += 1` `state -= 1` `state += action` `state -= action`
     mutating func parseExpression() -> ExpressionDefintion? {
         guard parseKeyword(.state) else { return nil }
         guard parseOneOfKeywords(.plus, .minus) else { return nil }
         guard parseKeyword(.equals) else { return nil }
-        guard let _ = parseIdentifier() else { return nil }
         
-        return ExpressionDefintion()
+        /// Here we can expect identifier or action.
+        if let _ = parseIdentifier() {
+            return ExpressionDefintion()
+        } else if parseKeyword(.action) {
+            return ExpressionDefintion()
+        }
+        
+        return nil
     }
     
     struct TestNameExpected: Error {}
@@ -171,5 +186,33 @@ extension TokenStream {
         if let reduce = try parseTestReduceExpression() { return .reduceExpression(reduce) }
         
         return nil
+    }
+    
+    mutating func parseSingleReduceDefinition() throws -> SingleReduceDefinition? {
+        guard parseKeyword(.with) else { return nil }
+        let action = parseIdentifierSequence()
+        guard !action.isEmpty else { throw ReduceActionIdentifierExpected() }
+        
+        let expressions = try parseExpressionsBlock()
+        
+        return SingleReduceDefinition(
+            action: action,
+            expressions: expressions)
+    }
+    
+    mutating func parseStateReducersDefinition() throws -> StateReducersDefinition? {
+        guard parseKeyword(.reduce) else { return nil }
+        guard let state = parseIdentifier() else { throw ReduceStateIdentifierExpected() }
+        guard parseKeyword(.openCurlyBrace) else { throw ExpressionsBlockOpenBraceExpected() }
+        
+        var reducers = [] as [SingleReduceDefinition]
+        while let reducer = try parseSingleReduceDefinition() {
+            reducers.append(reducer)
+        }
+        
+        guard !reducers.isEmpty else { throw ReduceWithKeywordExpected() }
+        guard parseKeyword(.closedCurlyBrace) else { throw ExpressionsBlockCloseBraceExpected() }
+        
+        return StateReducersDefinition(state: state, reducers: reducers)
     }
 }
