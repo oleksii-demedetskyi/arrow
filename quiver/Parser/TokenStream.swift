@@ -25,4 +25,16 @@ struct TokenStream {
     mutating func rollback() {
         index = index.advanced(by: -1)
     }
+    
+    struct State {
+        fileprivate let stream: TokenStream
+    }
+    
+    func store() -> State {
+        State(stream: self)
+    }
+    
+    mutating func restore(state: State) {
+        self = state.stream
+    }
 }

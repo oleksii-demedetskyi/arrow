@@ -195,6 +195,7 @@ extension TokenStream {
         
         let expressions = try parseExpressionsBlock()
         
+        
         return SingleReduceDefinition(
             action: action,
             expressions: expressions)

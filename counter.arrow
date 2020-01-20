@@ -46,6 +46,6 @@ reduce Counter {
 
 test Increment with value for Counter {
   reduce Increment
-  reduce Increment by value 10
+  reduce Increment by value: 10
   assert state is 11
 }
