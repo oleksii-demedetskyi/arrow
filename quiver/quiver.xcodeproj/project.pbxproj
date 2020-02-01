@@ -23,6 +23,8 @@
 		DEA888AA23D1DEE400664F88 /* StateDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA888A923D1DEE400664F88 /* StateDefinition.swift */; };
 		DEA888AF23D1E1F400664F88 /* ReduceDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA888AB23D1E17600664F88 /* ReduceDefinition.swift */; };
 		DEA888B023D1E20700664F88 /* ExpressionDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */; };
+		DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */; };
+		DEB45AE623E4E7E2009EE3B0 /* TopLevelDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		DEA888A923D1DEE400664F88 /* StateDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDefinition.swift; sourceTree = "<group>"; };
 		DEA888AB23D1E17600664F88 /* ReduceDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduceDefinition.swift; sourceTree = "<group>"; };
 		DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDefinition.swift; sourceTree = "<group>"; };
+		DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserIntegratedTest.swift; sourceTree = "<group>"; };
+		DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelDefinition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 				DE5E530E23D21C2C00902164 /* TestDefinition.swift */,
 				DEA888A923D1DEE400664F88 /* StateDefinition.swift */,
 				DEA888AB23D1E17600664F88 /* ReduceDefinition.swift */,
+				DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */,
 				DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */,
 			);
 			path = Parser;
@@ -166,6 +171,7 @@
 				DEA8887B23D1BA0A00664F88 /* TestTokenStream.swift */,
 				DEA8889123D1C24A00664F88 /* Info.plist */,
 				DEA888A523D1C70F00664F88 /* TestParsers.swift */,
+				DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 				DEA8889C23D1C2B500664F88 /* Token.swift in Sources */,
 				DEA888A423D1C68C00664F88 /* Parser.swift in Sources */,
 				DEA888AF23D1E1F400664F88 /* ReduceDefinition.swift in Sources */,
+				DEB45AE623E4E7E2009EE3B0 /* TopLevelDefinition.swift in Sources */,
 				DEA888B023D1E20700664F88 /* ExpressionDefinition.swift in Sources */,
 				DEA888AA23D1DEE400664F88 /* StateDefinition.swift in Sources */,
 			);
@@ -335,6 +342,7 @@
 			files = (
 				DEA888A623D1C70F00664F88 /* TestParsers.swift in Sources */,
 				DEA8889923D1C25100664F88 /* TestTokenStream.swift in Sources */,
+				DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

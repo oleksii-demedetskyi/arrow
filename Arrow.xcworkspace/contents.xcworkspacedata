@@ -11,6 +11,12 @@
       location = "group:Stream-4.md">
    </FileRef>
    <FileRef
+      location = "group:Stream-5.md">
+   </FileRef>
+   <FileRef
+      location = "group:Backlog.md">
+   </FileRef>
+   <FileRef
       location = "group:quiver/quiver.xcodeproj">
    </FileRef>
 </Workspace>

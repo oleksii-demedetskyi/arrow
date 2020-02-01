@@ -1,7 +1,6 @@
 import Foundation
 import Parser
 
-
 let filePath = CommandLine.arguments[1]
 
 var file = try String(contentsOfFile: filePath)

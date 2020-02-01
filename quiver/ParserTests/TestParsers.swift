@@ -118,7 +118,7 @@ class TestParser: XCTestCase {
         
         let definition = try stream.parseTestReduceExpression()
         
-        XCTAssertEqual(definition?.action, "Increment")
+        XCTAssertEqual(definition?.action, ["Increment"])
     }
     
     ///```
@@ -137,7 +137,7 @@ class TestParser: XCTestCase {
         
         XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: .init(sign: nil, value: "0"))))
         XCTAssertEqual(try stream.parseTestExpression(), .assignState(.init(value: .init(sign: nil, value: "10"))))
-        XCTAssertEqual(try stream.parseTestExpression(), .reduceExpression(.init(action: "Increment")))
+        XCTAssertEqual(try stream.parseTestExpression(), .reduceExpression(.init(action: ["Increment"], value: nil)))
         XCTAssertEqual(try stream.parseTestExpression(), .assertState(.init(value: .init(sign: nil, value: "11"))))
     }
     
@@ -210,5 +210,17 @@ class TestParser: XCTestCase {
         let reducers = definition!.reducers
         
         XCTAssertEqual(reducers.first!.action, ["Increment", "by", "value"])
+    }
+    
+    func testReduceCompoundActionInTestDefinition() throws {
+        var stream = TokenStream(stream: [
+            .reduce, "Increment", "by", "value", .colon, "10"
+        ])
+        
+        let expression = try stream.parseTestReduceExpression()
+        
+        XCTAssertNil(stream.current)
+        XCTAssertEqual(expression?.action, ["Increment", "by", "value"])
+        XCTAssertEqual(expression?.value, "10")
     }
 }

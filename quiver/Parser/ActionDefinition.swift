@@ -1,5 +1,5 @@
 /// `action Increment` definition
-struct ActionDefinition {
+struct ActionDefinition: Equatable {
     let identifier: [Substring]
     let type: Substring?
 }

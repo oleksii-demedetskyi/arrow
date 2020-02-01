@@ -1,14 +1,14 @@
-struct StateReducersDefinition {
+struct StateReducersDefinition: Equatable {
     let state: Substring
-    let reducers: [SingleReduceDefinition] // Required to be non empty. Phantom type?
+    let reducers: [SingleReduceDefinition] // TODO: Required to be non empty. Phantom type?
 }
 
-struct SingleReduceDefinition {
+struct SingleReduceDefinition: Equatable {
     let action: [Substring]
     let expressions: [ExpressionDefintion]
 }
 
-struct ReduceDefinition {
+struct ReduceDefinition: Equatable {
     let state: Substring
     let action: Substring
     let expressions: [ExpressionDefintion]

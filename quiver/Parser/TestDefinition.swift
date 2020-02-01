@@ -1,4 +1,4 @@
-struct TestDefinition {
+struct TestDefinition: Equatable {
     let name: [Substring] // Need to be collapsed into single one?
     let state: Substring
     let expressions: [TestExpression]
@@ -25,5 +25,6 @@ struct StateAssignmentExpression: Equatable {
 }
 
 struct ReduceExpression: Equatable {
-    let action: Substring
+    let action: [Substring]
+    let value: Substring?
 }

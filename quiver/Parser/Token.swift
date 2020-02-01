@@ -43,3 +43,9 @@ public enum Token: Equatable, Hashable {
         }
     }
 }
+
+extension Token: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        self = .identifier(Substring(value))
+    }
+}
