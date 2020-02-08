@@ -208,5 +208,4 @@ class ParserIntegratedTest: XCTestCase {
             for _ in 0...1000 { try! testCounterExample() }
         }
     }
-
 }

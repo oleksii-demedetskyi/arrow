@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE5078AA23EF61A00021C850 /* Lexeme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078A923EF61A00021C850 /* Lexeme.swift */; };
+		DE5078AC23EF62080021C850 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078AB23EF62080021C850 /* Lexer.swift */; };
+		DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078AD23EF62B20021C850 /* LexerTests.swift */; };
 		DE5E530F23D21C2C00902164 /* TestDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E530E23D21C2C00902164 /* TestDefinition.swift */; };
 		DEA8886523C8C38100664F88 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8886423C8C38100664F88 /* main.swift */; };
 		DEA8886C23C91C2800664F88 /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8886B23C91C2800664F88 /* Parsers.swift */; };
@@ -68,6 +71,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DE5078A923EF61A00021C850 /* Lexeme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexeme.swift; sourceTree = "<group>"; };
+		DE5078AB23EF62080021C850 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		DE5078AD23EF62B20021C850 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		DE5E530E23D21C2C00902164 /* TestDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDefinition.swift; sourceTree = "<group>"; };
 		DEA8886123C8C38100664F88 /* quiver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quiver; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA8886423C8C38100664F88 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -161,6 +167,8 @@
 				DEA888AB23D1E17600664F88 /* ReduceDefinition.swift */,
 				DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */,
 				DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */,
+				DE5078A923EF61A00021C850 /* Lexeme.swift */,
+				DE5078AB23EF62080021C850 /* Lexer.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -172,6 +180,7 @@
 				DEA8889123D1C24A00664F88 /* Info.plist */,
 				DEA888A523D1C70F00664F88 /* TestParsers.swift */,
 				DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */,
+				DE5078AD23EF62B20021C850 /* LexerTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -329,6 +338,8 @@
 				DEA8889A23D1C25F00664F88 /* TokenStream.swift in Sources */,
 				DEA8889C23D1C2B500664F88 /* Token.swift in Sources */,
 				DEA888A423D1C68C00664F88 /* Parser.swift in Sources */,
+				DE5078AC23EF62080021C850 /* Lexer.swift in Sources */,
+				DE5078AA23EF61A00021C850 /* Lexeme.swift in Sources */,
 				DEA888AF23D1E1F400664F88 /* ReduceDefinition.swift in Sources */,
 				DEB45AE623E4E7E2009EE3B0 /* TopLevelDefinition.swift in Sources */,
 				DEA888B023D1E20700664F88 /* ExpressionDefinition.swift in Sources */,
@@ -342,6 +353,7 @@
 			files = (
 				DEA888A623D1C70F00664F88 /* TestParsers.swift in Sources */,
 				DEA8889923D1C25100664F88 /* TestTokenStream.swift in Sources */,
+				DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */,
 				DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
