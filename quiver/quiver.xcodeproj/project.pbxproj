@@ -27,6 +27,8 @@
 		DEA888B023D1E20700664F88 /* ExpressionDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */; };
 		DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */; };
 		DEB45AE623E4E7E2009EE3B0 /* TopLevelDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */; };
+		DED16E3823F0BB290027D192 /* CounterFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3723F0BB290027D192 /* CounterFixture.swift */; };
+		DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3923F0BCBD0027D192 /* Integrations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		DEA888AD23D1E1C500664F88 /* ExpressionDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDefinition.swift; sourceTree = "<group>"; };
 		DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserIntegratedTest.swift; sourceTree = "<group>"; };
 		DEB45AE523E4E7E2009EE3B0 /* TopLevelDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLevelDefinition.swift; sourceTree = "<group>"; };
+		DED16E3723F0BB290027D192 /* CounterFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterFixture.swift; sourceTree = "<group>"; };
+		DED16E3923F0BCBD0027D192 /* Integrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Integrations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,8 @@
 				DEA888A523D1C70F00664F88 /* TestParsers.swift */,
 				DEB45AE323E4E131009EE3B0 /* ParserIntegratedTest.swift */,
 				DE5078AD23EF62B20021C850 /* LexerTests.swift */,
+				DED16E3723F0BB290027D192 /* CounterFixture.swift */,
+				DED16E3923F0BCBD0027D192 /* Integrations.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -348,8 +354,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA888A623D1C70F00664F88 /* TestParsers.swift in Sources */,
+				DED16E3823F0BB290027D192 /* CounterFixture.swift in Sources */,
 				DEA8889923D1C25100664F88 /* TestTokenStream.swift in Sources */,
 				DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */,
+				DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */,
 				DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
