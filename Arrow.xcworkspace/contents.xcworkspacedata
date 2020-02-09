@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:quiver/quiver.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Workbench/Workbench.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:counter.arrow">
    </FileRef>
    <FileRef
@@ -18,8 +24,5 @@
    </FileRef>
    <FileRef
       location = "group:Backlog.md">
-   </FileRef>
-   <FileRef
-      location = "group:quiver/quiver.xcodeproj">
    </FileRef>
 </Workspace>

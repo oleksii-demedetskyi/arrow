@@ -12,7 +12,6 @@
 		DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078AD23EF62B20021C850 /* LexerTests.swift */; };
 		DE5E530F23D21C2C00902164 /* TestDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E530E23D21C2C00902164 /* TestDefinition.swift */; };
 		DEA8886523C8C38100664F88 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8886423C8C38100664F88 /* main.swift */; };
-		DEA8886C23C91C2800664F88 /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8886B23C91C2800664F88 /* Parsers.swift */; };
 		DEA8888B23D1C24A00664F88 /* Parser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA8888223D1C24A00664F88 /* Parser.framework */; };
 		DEA8889223D1C24A00664F88 /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA8888423D1C24A00664F88 /* Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEA8889923D1C25100664F88 /* TestTokenStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8887B23D1BA0A00664F88 /* TestTokenStream.swift */; };
@@ -77,7 +76,6 @@
 		DE5E530E23D21C2C00902164 /* TestDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDefinition.swift; sourceTree = "<group>"; };
 		DEA8886123C8C38100664F88 /* quiver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quiver; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA8886423C8C38100664F88 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		DEA8886B23C91C2800664F88 /* Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
 		DEA8887923D1B60100664F88 /* TokenStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStream.swift; sourceTree = "<group>"; };
 		DEA8887B23D1BA0A00664F88 /* TestTokenStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTokenStream.swift; sourceTree = "<group>"; };
 		DEA8888223D1C24A00664F88 /* Parser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Parser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				DEA8886423C8C38100664F88 /* main.swift */,
-				DEA8886B23C91C2800664F88 /* Parsers.swift */,
 			);
 			path = quiver;
 			sourceTree = "<group>";
@@ -268,7 +265,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Alexey Demedetskiy";
 				TargetAttributes = {
 					DEA8886023C8C38100664F88 = {
@@ -324,7 +321,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA8886C23C91C2800664F88 /* Parsers.swift in Sources */,
 				DEA8886523C8C38100664F88 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +486,7 @@
 		DEA8886923C8C38100664F88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -499,6 +496,7 @@
 		DEA8886A23C8C38100664F88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
