@@ -2,7 +2,7 @@ import XCTest
 @testable import Parser
 
 class ParserIntegratedTest: XCTestCase {
-    let counter = TokenStream(stream: Fixture.Counter.tokens)
+    let counter = Parser(stream: Fixture.Counter.tokens)
     
     func testCounterExample() throws {
         var stream = counter
@@ -19,19 +19,19 @@ class ParserIntegratedTest: XCTestCase {
         
         check(.reduce(StateReducersDefinition(
             state: "Counter",
-            reducers: [SingleReduceDefinition(
+            reducers: try [SingleReduceDefinition(
                 action: ["Increment"],
                 expressions: [ExpressionDefintion(
                     operator: .increment,
-                    value: .identifier("1"))])])))
+                value: .identifier("1"))])].asNonEmpty())))
         
         check(.reduce(StateReducersDefinition(
             state: "Counter",
-            reducers: [SingleReduceDefinition(
+            reducers: try [SingleReduceDefinition(
                 action: ["Decrement"],
                 expressions: [ExpressionDefintion(
                     operator: .decrement,
-                    value: .identifier("1"))])])))
+                value: .identifier("1"))])].asNonEmpty())))
         
         check(.test(TestDefinition(
             name: ["Simple", "increment"],
@@ -72,7 +72,7 @@ class ParserIntegratedTest: XCTestCase {
         
         check(.reduce(StateReducersDefinition(
             state: "Counter",
-            reducers: [
+            reducers: try [
                 SingleReduceDefinition(
                     action: ["Increment", "by", "value"],
                     expressions: [ExpressionDefintion(
@@ -83,7 +83,7 @@ class ParserIntegratedTest: XCTestCase {
                 expressions: [ExpressionDefintion(
                     operator: .decrement,
                     value: .action)])
-        ])))
+            ].asNonEmpty())))
         
         check(.test(TestDefinition(
             name: ["Increment", "by", "value"],

@@ -5,7 +5,7 @@ enum TopLevelDefinition: Equatable {
     case test(TestDefinition)
 }
 
-extension TokenStream {
+extension Parser {
     mutating func parseTopLevelDefinition() throws -> TopLevelDefinition? {
         if let item = try parseActionDefinition() { return .action(item) }
         if let item = try parseStateDefinition() { return .state(item) }

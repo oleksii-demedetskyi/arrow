@@ -4,21 +4,21 @@ import XCTest
 class TestTokenStream: XCTestCase {
     func testInitialCurrentItem() {
         let tokens: [Token] = [.identifier("Hello stream"), .action]
-        let stream = TokenStream(stream: tokens)
+        let stream = Parser(stream: tokens)
         
         XCTAssertEqual(stream.current, tokens.first)
         XCTAssertNotEqual(stream.current, tokens.last)
     }
     
     func testEmptyInitialStream() {
-        let stream = TokenStream(stream: [])
+        let stream = Parser(stream: [])
         
         XCTAssertNoThrow(stream.current)
         XCTAssertNil(stream.current)
     }
     
     func testConsumingToken() {
-        var stream = TokenStream(stream:
+        var stream = Parser(stream:
             [.identifier("Hello stream"), .action]
         )
         
@@ -32,7 +32,7 @@ class TestTokenStream: XCTestCase {
     /// Consume and rollback right now are just +1 and -1.
     /// I believe it is not right but will work for now.
     func testRollback() {
-        var stream = TokenStream(stream:
+        var stream = Parser(stream:
             [.identifier("Hello stream"), .action]
         )
         

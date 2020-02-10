@@ -7,7 +7,7 @@ class Integrations: XCTestCase {
             let lexer = Lexer(string: Fixture.Counter.text)
             let lexems = lexer.scan()
             let tokens = lexems.map { $0.token }
-            var parser = TokenStream(stream: tokens)
+            var parser = Parser(stream: tokens)
             let ast = try? parser.parseProgram()
             
             XCTAssertNotNil(ast)

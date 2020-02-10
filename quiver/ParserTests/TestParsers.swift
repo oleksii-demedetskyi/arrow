@@ -3,21 +3,21 @@ import XCTest
 
 class TestParser: XCTestCase {
     func testIdentifierParserFail() {
-        var stream = TokenStream(stream: [.action])
+        var stream = Parser(stream: [.action])
         
         XCTAssertNil(stream.parseIdentifier())
         XCTAssertEqual(stream.current, .action)
     }
     
     func testIdentifierParserSuccess() {
-        var stream = TokenStream(stream: [.identifier("test"), .action])
+        var stream = Parser(stream: [.identifier("test"), .action])
         
         XCTAssertEqual(stream.parseIdentifier(), "test")
         XCTAssertEqual(stream.current, .action)
     }
     
     func testActionParser() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .action, .identifier("Increment")]
         )
         
@@ -26,7 +26,7 @@ class TestParser: XCTestCase {
     }
     
     func testOneOfKeywordsParser() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .action, .equals, .state
         ])
         
@@ -39,7 +39,7 @@ class TestParser: XCTestCase {
     }
     
     func testActionDefinitionParserSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .action, .identifier("Increment")
         ])
         
@@ -48,7 +48,7 @@ class TestParser: XCTestCase {
     }
     
     func testActionDefinitionNotDetectAction() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .identifier("Increment")
         ])
         
@@ -56,7 +56,7 @@ class TestParser: XCTestCase {
     }
     
     func testActionDefinitionUnableToConstruct() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .action, .action, .identifier("Increment")
         ])
         
@@ -64,7 +64,7 @@ class TestParser: XCTestCase {
     }
     
     func testStateDefinitinSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .state, .identifier("Counter"),
             .colon, .identifier("Int"),
             .equals, .identifier("0")
@@ -77,22 +77,8 @@ class TestParser: XCTestCase {
         XCTAssertEqual(definition?.value, "0")
     }
     
-    func testReduceDefinitionParserSuccess() throws {
-        var stream = TokenStream(stream: [
-            .reduce, .identifier("Counter"),
-            .with, .identifier("Increment"), .openCurlyBrace,
-            .state, .plus, .equals, .identifier("1"),
-            .closedCurlyBrace
-        ])
-        
-        let definition = try stream.parseReduceDefinition()
-        
-        XCTAssertEqual(definition?.state, "Counter")
-        XCTAssertEqual(definition?.action, "Increment")
-    }
-    
     func testStateAssertExpressionParserSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .assert, .state, .is, .identifier("0")
         ])
         
@@ -102,7 +88,7 @@ class TestParser: XCTestCase {
     }
     
     func testStateAssignmentParserSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .state, .equals, .identifier("10")
         ])
         
@@ -112,7 +98,7 @@ class TestParser: XCTestCase {
     }
     
     func testReduceExpressionSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .reduce, .identifier("Increment")
         ])
         
@@ -128,7 +114,7 @@ class TestParser: XCTestCase {
     ///assert state is 11
     ///```
     func testTestExpressionParserSuccess() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .assert, .state, .is, .identifier("0"),
             .state, .equals, .identifier("10"),
             .reduce, .identifier("Increment"),
@@ -142,7 +128,7 @@ class TestParser: XCTestCase {
     }
     
     func testUnnamedTest() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .test, .for, .identifier("Counter"),
             .openCurlyBrace,
             .reduce, .identifier("Increment"),
@@ -158,7 +144,7 @@ class TestParser: XCTestCase {
     }
     
     func testValueDefinitionParser() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .identifier("100"),
             .minus, .identifier("0"),
             .plus, .identifier("asd")
@@ -170,7 +156,7 @@ class TestParser: XCTestCase {
     }
     
     func testValueDefinitionParserRollback() {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .minus, .test
         ])
         
@@ -180,7 +166,7 @@ class TestParser: XCTestCase {
     
     func testActionWithTypeParserSucces() throws {
         /// `action Increment by value: Int`
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .action, .identifier("Increment"), .identifier("by"), .identifier("value"),
             .colon, .identifier("Int")
         ])
@@ -192,7 +178,7 @@ class TestParser: XCTestCase {
     }
     
     func testPartialReducerDefinition() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .reduce, .identifier("Counter"), .openCurlyBrace,
                 .with, .identifier("Increment"), .identifier("by"), .identifier("value"),
                     .openCurlyBrace, .state, .plus, .equals, .action, .closedCurlyBrace,
@@ -213,7 +199,7 @@ class TestParser: XCTestCase {
     }
     
     func testReduceCompoundActionInTestDefinition() throws {
-        var stream = TokenStream(stream: [
+        var stream = Parser(stream: [
             .reduce, "Increment", "by", "value", .colon, "10"
         ])
         
