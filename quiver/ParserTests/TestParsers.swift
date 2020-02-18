@@ -44,7 +44,7 @@ class TestParser: XCTestCase {
         ])
         
         let definition = try stream.parseActionDefinition()
-        XCTAssertEqual(definition?.identifier, ["Increment"])
+        XCTAssertEqual(definition?.name, ["Increment"])
     }
     
     func testActionDefinitionNotDetectAction() {
@@ -173,7 +173,7 @@ class TestParser: XCTestCase {
         
         let definition = try stream.parseActionDefinition()
         
-        XCTAssertEqual(definition?.identifier, ["Increment", "by", "value"])
+        XCTAssertEqual(definition?.name, ["Increment", "by", "value"])
         XCTAssertEqual(definition?.type, "Int")
     }
     

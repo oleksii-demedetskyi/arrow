@@ -25,5 +25,7 @@ action Operation progress completed
 action Operation progress finished
 ```
 
-- [ ] lexer
+- [x] lexer
 
+- [ ] detect unused actions and unused states.
+ 

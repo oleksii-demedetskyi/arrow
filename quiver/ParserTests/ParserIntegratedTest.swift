@@ -13,8 +13,8 @@ class ParserIntegratedTest: XCTestCase {
             XCTAssertEqual(parsedProgram.removeFirst(), definition, line: line)
         }
         
-        check(.action(ActionDefinition(identifier: ["Increment"], type: nil)))
-        check(.action(ActionDefinition(identifier: ["Decrement"], type: nil)))
+        check(.action(ActionDefinition(name: ["Increment"], type: nil)))
+        check(.action(ActionDefinition(name: ["Decrement"], type: nil)))
         check(.state(StateDefinition(name: "Counter", type: "Int", value: "0")))
         
         check(.reduce(StateReducersDefinition(
@@ -65,10 +65,10 @@ class ParserIntegratedTest: XCTestCase {
                     value: ValueDefinition(sign: nil, value: "0")))])))
         
         check(.action(ActionDefinition(
-            identifier: ["Increment", "by", "value"], type: "Int")))
+            name: ["Increment", "by", "value"], type: "Int")))
         
         check(.action(ActionDefinition(
-            identifier: ["Decrement", "by", "value"], type: "Int")))
+            name: ["Decrement", "by", "value"], type: "Int")))
         
         check(.reduce(StateReducersDefinition(
             state: "Counter",

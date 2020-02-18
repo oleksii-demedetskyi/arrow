@@ -30,6 +30,8 @@
 		DED16E3823F0BB290027D192 /* CounterFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3723F0BB290027D192 /* CounterFixture.swift */; };
 		DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3923F0BCBD0027D192 /* Integrations.swift */; };
 		DED16E3C23F0C2590027D192 /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3B23F0C2590027D192 /* NonEmpty.swift */; };
+		DEE5A98923FC8549002145E1 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5A98823FC8549002145E1 /* Program.swift */; };
+		DEE5A98B23FC88A7002145E1 /* ProgramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5A98A23FC88A7002145E1 /* ProgramTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,8 @@
 		DED16E3723F0BB290027D192 /* CounterFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterFixture.swift; sourceTree = "<group>"; };
 		DED16E3923F0BCBD0027D192 /* Integrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Integrations.swift; sourceTree = "<group>"; };
 		DED16E3B23F0C2590027D192 /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
+		DEE5A98823FC8549002145E1 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		DEE5A98A23FC88A7002145E1 /* ProgramTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 				DE5078A923EF61A00021C850 /* Lexeme.swift */,
 				DE5078AB23EF62080021C850 /* Lexer.swift */,
 				DED16E3B23F0C2590027D192 /* NonEmpty.swift */,
+				DEE5A98823FC8549002145E1 /* Program.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 		DEA8888E23D1C24A00664F88 /* ParserTests */ = {
 			isa = PBXGroup;
 			children = (
+				DEE5A98A23FC88A7002145E1 /* ProgramTests.swift */,
 				DEA8887B23D1BA0A00664F88 /* TestTokenStream.swift */,
 				DEA8889123D1C24A00664F88 /* Info.plist */,
 				DEA888A523D1C70F00664F88 /* TestParsers.swift */,
@@ -348,6 +354,7 @@
 				DED16E3C23F0C2590027D192 /* NonEmpty.swift in Sources */,
 				DEA888AF23D1E1F400664F88 /* ReduceDefinition.swift in Sources */,
 				DEB45AE623E4E7E2009EE3B0 /* TopLevelDefinition.swift in Sources */,
+				DEE5A98923FC8549002145E1 /* Program.swift in Sources */,
 				DEA888B023D1E20700664F88 /* ExpressionDefinition.swift in Sources */,
 				DEA888AA23D1DEE400664F88 /* StateDefinition.swift in Sources */,
 			);
@@ -359,6 +366,7 @@
 			files = (
 				DEA888A623D1C70F00664F88 /* TestParsers.swift in Sources */,
 				DED16E3823F0BB290027D192 /* CounterFixture.swift in Sources */,
+				DEE5A98B23FC88A7002145E1 /* ProgramTests.swift in Sources */,
 				DEA8889923D1C25100664F88 /* TestTokenStream.swift in Sources */,
 				DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */,
 				DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */,

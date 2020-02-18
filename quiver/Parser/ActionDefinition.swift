@@ -1,6 +1,6 @@
 /// `action Increment` definition
 struct ActionDefinition: Equatable {
-    let identifier: [Substring]
+    let name: [Substring]
     let type: Substring?
 }
 
@@ -17,9 +17,9 @@ extension Parser {
         
         if parseKeyword(.colon) {
             guard let type = parseIdentifier() else { throw ActionTypeIdentifierExprected()}
-            return ActionDefinition(identifier: identifiers, type: type)
+            return ActionDefinition(name: identifiers, type: type)
         } else {
-            return ActionDefinition(identifier: identifiers, type: nil)
+            return ActionDefinition(name: identifiers, type: nil)
         }
     }
 }

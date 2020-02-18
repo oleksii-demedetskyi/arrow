@@ -11,6 +11,9 @@
       location = "group:counter.arrow">
    </FileRef>
    <FileRef
+      location = "group:Backlog.md">
+   </FileRef>
+   <FileRef
       location = "group:Stream-3.md">
    </FileRef>
    <FileRef
@@ -23,6 +26,6 @@
       location = "group:Stream-6.md">
    </FileRef>
    <FileRef
-      location = "group:Backlog.md">
+      location = "group:Stream-7.md">
    </FileRef>
 </Workspace>
