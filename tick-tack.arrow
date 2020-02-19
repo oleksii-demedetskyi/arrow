@@ -1,0 +1,35 @@
+action Reset
+action Mark point: Point
+
+state Game: {
+  turn: Mark = tick
+  board: Mark by Point
+}
+
+reduce Game with Reset {
+    state = default
+}
+
+check Game before Mark point {
+    assert state.board[action] is empty
+}
+
+check Game after Mark point {
+    assert state.board[action] is not empty
+}
+
+reduce Game with Mark point {
+    state.board[action] = state.turn
+    
+    state.turn = when state.turn is {
+        tick: tack
+        tack: tick
+    }
+}
+
+type Point: {
+    x: (0..2)
+    y: (0..2)
+}
+
+type Mark: tick | tack
