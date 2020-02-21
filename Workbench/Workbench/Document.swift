@@ -22,7 +22,13 @@ class Document: NSDocument {
 
     override func makeWindowControllers() {
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(text: text)
+        
+        let lines = text.components(separatedBy: .newlines)
+        let lineViews = lines.enumerated().map { line in
+            LineView(id: line.offset, text: line.element)
+        }
+        
+        let contentView = ContentView(lines: lineViews)
 
         // Create the window and set the content view.
         let window = NSWindow(
