@@ -8,50 +8,70 @@
 
 import Cocoa
 import SwiftUI
+import Combine
+
+struct Root<T: View>: View {
+    @ObservedObject var store: Store
+    let connect: (AppState, @escaping (Action) -> ()) -> T
+    
+    var body: T {
+        connect(store.state, store.dispatch(action:))
+    }
+}
+
+class Command {
+    let action: () -> ()
+    
+    func perform() {
+        self.action()
+    }
+    
+    init(action: @escaping () -> ()) {
+        self.action = action
+    }
+    
+    static let nop = Command { }
+    
+    static func bind(_ action: Action, to dispatch: @escaping (Action) -> ()) -> Command {
+        return Command {
+            dispatch(action)
+        }
+    }
+}
 
 class Document: NSDocument {
-
-    override init() {
-        super.init()
-        // Add your subclass-specific initialization here.
-    }
-
-    override class var autosavesInPlace: Bool {
-        return true
-    }
-
-    override func makeWindowControllers() {
-        // Create the SwiftUI view that provides the window contents.
-        
-        let lines = text.components(separatedBy: .newlines)
-        let lineViews = lines.enumerated().map { line in
-            LineView(id: line.offset, text: line.element)
+    let store = Store()
+    
+    var body: some View {
+        Root(store: store) { state, dispatch in
+            Editor(lines: state.lines.enumerated().map { line in
+                Line(
+                    id: line.offset,
+                    text: line.element,
+                    select: .bind(HighlightLine(index: line.offset), to: dispatch),
+                    isSelected: state.highlightedLine == line.offset
+                )}
+            )
         }
-        
-        let contentView = ContentView(lines: lineViews)
-
+    }
+    
+    override func makeWindowControllers() {
         // Create the window and set the content view.
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
-        window.contentView = NSHostingView(rootView: contentView)
+        window.contentView = NSHostingView(rootView: body)
         let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
     }
-
-    override func data(ofType typeName: String) throws -> Data {
-        // Insert code here to write your document to data of the specified type, throwing an error in case of failure.
-        // Alternatively, you could remove this method and override fileWrapper(ofType:), write(to:ofType:), or write(to:ofType:for:originalContentsURL:) instead.
-        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-    }
-
-    var text: String = ""
+    
     override func read(from data: Data, ofType typeName: String) throws {
-        text = String(data: data, encoding: .utf8)!
+        let text = String(data: data, encoding: .utf8)!
+        store.dispatch(action: RenderFile(contents: text))
     }
-
-
+    
+    
 }
 

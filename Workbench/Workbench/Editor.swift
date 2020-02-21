@@ -1,13 +1,14 @@
 import SwiftUI
 
-struct LineView: View, Identifiable {
+struct Line: View, Identifiable {
     let id: Int
     let text: String
+    let select: Command
+    let isSelected: Bool
     
-    @State var selected: Bool = false
     
     var color: some View {
-        if (selected) {
+        if (isSelected) {
             return Color(.darkGray)
         } else {
             return Color(.clear)
@@ -25,26 +26,28 @@ struct LineView: View, Identifiable {
             Spacer()
         }
         .font(.system(.body, design: .monospaced))
-        .onTapGesture {
-            self.selected = !self.selected
-        }
+        .onTapGesture(perform: self.select.perform)
         .background(self.color)
     }
 }
 
-struct ContentView: View {
-    let lines: [LineView]
+struct Editor: View {
+    let lines: [Line]
+    
     var body: some View {
-        List(lines) { $0 }
+        List(lines) {
+            $0
+        }
+        .listRowInsets(.init(top: 0, leading: 0, bottom: 50, trailing: 0))
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(lines: [
-            LineView(id: 1, text: "action Increment"),
-            LineView(id: 2, text: "action Decrement"),
-            LineView(id: 300, text: "state Counter: Int = 0"),
+        Editor(lines: [
+            Line(id: 1, text: "action Increment", select: .nop, isSelected: true),
+            Line(id: 2, text: "action Decrement", select: .nop, isSelected: false),
+            Line(id: 300, text: "state Counter: Int = 0", select: .nop, isSelected: false)
         ])
     }
 }
