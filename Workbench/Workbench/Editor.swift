@@ -26,6 +26,7 @@ struct Line: View, Identifiable {
             Spacer()
         }
         .font(.system(.body, design: .monospaced))
+        .contentShape(Rectangle())
         .onTapGesture(perform: self.select.perform)
         .background(self.color)
     }
@@ -35,10 +36,13 @@ struct Editor: View {
     let lines: [Line]
     
     var body: some View {
-        List(lines) {
-            $0
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(lines) {
+                    $0
+                }
+            }
         }
-        .listRowInsets(.init(top: 0, leading: 0, bottom: 50, trailing: 0))
     }
 }
 
