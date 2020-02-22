@@ -10,35 +10,6 @@ import Cocoa
 import SwiftUI
 import Combine
 
-struct Root<T: View>: View {
-    @ObservedObject var store: Store
-    let connect: (AppState, @escaping (Action) -> ()) -> T
-    
-    var body: T {
-        connect(store.state, store.dispatch(action:))
-    }
-}
-
-class Command {
-    let action: () -> ()
-    
-    func perform() {
-        self.action()
-    }
-    
-    init(action: @escaping () -> ()) {
-        self.action = action
-    }
-    
-    static let nop = Command { }
-    
-    static func bind(_ action: Action, to dispatch: @escaping (Action) -> ()) -> Command {
-        return Command {
-            dispatch(action)
-        }
-    }
-}
-
 class Document: NSDocument {
     let store = Store()
     
@@ -49,6 +20,7 @@ class Document: NSDocument {
                     id: line.offset,
                     text: line.element,
                     select: .bind(HighlightLine(index: line.offset), to: dispatch),
+                    cursorOffset: state.cursorOffset,
                     isSelected: state.highlightedLine == line.offset
                 )}
             )
@@ -57,11 +29,12 @@ class Document: NSDocument {
     
     override func makeWindowControllers() {
         // Create the window and set the content view.
-        let window = NSWindow(
+        let window = Window(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
+        window.store = store
         window.contentView = NSHostingView(rootView: body)
         let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
@@ -71,7 +44,45 @@ class Document: NSDocument {
         let text = String(data: data, encoding: .utf8)!
         store.dispatch(action: RenderFile(contents: text))
     }
-    
-    
 }
 
+class Window: NSWindow {
+    var store: Store!
+    
+    override func keyDown(with event: NSEvent) {
+        interpretKeyEvents([event])
+    }
+    
+    override func moveUp(_ sender: Any?) {
+        store.dispatch(action: MoveLineUp())
+    }
+    
+    override func moveDown(_ sender: Any?) {
+        store.dispatch(action: MoveLineDown())
+    }
+    
+    override func moveLeft(_ sender: Any?) {
+        store.dispatch(action: MoveLeft())
+    }
+    
+    override func moveRight(_ sender: Any?) {
+        store.dispatch(action: MoveRight())
+    }
+    
+    override func insertNewline(_ sender: Any?) {
+        store.dispatch(action: InsertNewLine())
+    }
+    
+    override func insertText(_ insertString: Any) {
+        guard let text = insertString as? String else {
+            assertionFailure("WTF Appkit?")
+            return
+        }
+        
+        store.dispatch(action: InsertText(text: text))
+    }
+    
+    override func deleteBackward(_ sender: Any?) {
+        store.dispatch(action: DeleteBackward())
+    }
+}

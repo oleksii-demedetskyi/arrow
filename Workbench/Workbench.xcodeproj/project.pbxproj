@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE99BD0823FFF794007583ED /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD0723FFF794007583ED /* Store.swift */; };
+		DE99BD0A240166E9007583ED /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD09240166E9007583ED /* Command.swift */; };
 		DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1423F0554A0027D192 /* AppDelegate.swift */; };
 		DED16E1723F0554A0027D192 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1623F0554A0027D192 /* Document.swift */; };
 		DED16E1923F0554A0027D192 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1823F0554A0027D192 /* Editor.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		DE99BD0723FFF794007583ED /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		DE99BD09240166E9007583ED /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		DED16E1123F0554A0027D192 /* Workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED16E1423F0554A0027D192 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED16E1623F0554A0027D192 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				DED16E1423F0554A0027D192 /* AppDelegate.swift */,
 				DED16E1623F0554A0027D192 /* Document.swift */,
 				DED16E1823F0554A0027D192 /* Editor.swift */,
+				DE99BD09240166E9007583ED /* Command.swift */,
 				DED16E1A23F0554B0027D192 /* Assets.xcassets */,
 				DED16E1F23F0554B0027D192 /* Main.storyboard */,
 				DED16E2223F0554B0027D192 /* Info.plist */,
@@ -216,6 +219,7 @@
 				DED16E1723F0554A0027D192 /* Document.swift in Sources */,
 				DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */,
 				DED16E1923F0554A0027D192 /* Editor.swift in Sources */,
+				DE99BD0A240166E9007583ED /* Command.swift in Sources */,
 				DE99BD0823FFF794007583ED /* Store.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
