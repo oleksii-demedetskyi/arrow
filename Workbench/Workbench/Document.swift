@@ -9,21 +9,66 @@
 import Cocoa
 import SwiftUI
 import Combine
+@testable import Parser
+
+class Compiler: Subscriber {
+    private let queue = DispatchQueue(label: "compiler")
+    
+    func receive(subscription: Subscription) {
+        subscription.request(.unlimited)
+    }
+    
+    var textHash: Int = 0
+    
+    func receive(_: ()) -> Subscribers.Demand {
+        queue.async {
+            let text = self.store.state.lines.joined(separator: "\n")
+            guard text.hashValue != self.textHash else { return }
+            self.textHash = text.hashValue
+            
+            let lexems = Lexer(string: text).scan()
+            
+            DispatchQueue.main.async {
+                self.store.dispatch(action: LexerDidSuccess(lexems: lexems))
+            }
+        }
+        
+        return .unlimited
+    }
+    
+    func receive(completion: Subscribers.Completion<Never>) {}
+    
+    let store: Store
+    
+    init(store: Store) {
+        self.store = store
+        store.objectWillChange.subscribe(self)
+    }
+}
+
+let sharedStore = Store()
 
 class Document: NSDocument {
-    let store = Store()
+    // Use proper init
+    let store = sharedStore
+    let compiler = Compiler(store: sharedStore)
     
     var body: some View {
         Root(store: store) { state, dispatch in
-            Editor(lines: state.lines.enumerated().map { line in
-                Line(
-                    id: line.offset,
-                    text: line.element,
-                    select: .bind(HighlightLine(index: line.offset), to: dispatch),
-                    cursorOffset: state.cursorOffset,
-                    isSelected: state.highlightedLine == line.offset
-                )}
-            )
+            HStack(alignment: .top) {
+                List(state.lexems.indices, id:\.self) { idx in
+                    LexemeView(lexeme: state.lexems[idx])
+                }
+                Editor(lines: state.lines.enumerated().map { line in
+                    Line(
+                        id: line.offset,
+                        text: line.element,
+                        select: .bind(HighlightLine(index: line.offset), to: dispatch),
+                        cursorOffset: state.cursorOffset,
+                        isSelected: state.highlightedLine == line.offset
+                    )}
+                )
+            }
         }
     }
     

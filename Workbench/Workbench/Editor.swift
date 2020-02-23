@@ -26,8 +26,7 @@ extension AnyTransition {
 
 struct Cursor: View {
     var body: some View {
-        Rectangle()
-            .frame(width: 2)
+        Rectangle().frame(width: 4)
             //.transition(.repeating(from: Opacity(0), to: Opacity(1)))
     }
 }
@@ -55,21 +54,21 @@ struct Line: View, Identifiable {
                 Text("\(id)").foregroundColor(.gray)
             }
             .frame(width: 40)
-            HStack(spacing: 0) {
-                if (isSelected) {
+            if (isSelected) {
+                HStack(spacing: -2) {
                     Text(text[..<cursorOffset])
                     Cursor()
                     Text(text[cursorOffset...])
-                } else {
-                    Text(text)
                 }
+            } else {
+                Text(text)
             }
             Spacer()
         }
         .padding(.vertical, 2)
         .font(.system(.body, design: .monospaced))
         .contentShape(Rectangle())
-        .onTapGesture(perform: self.select.perform)
+        .onTapGesture { self.select.perform() }
         .background(self.color)
     }
 }
@@ -96,7 +95,7 @@ struct Editor: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Editor(lines: [
-            Line(id: 1, text: "action Increment", select: .nop, cursorOffset: "".startIndex,isSelected: true),
+            Line(id: 1, text: "action Increment", select: .nop, cursorOffset: "action Increment".index("".startIndex, offsetBy: 5),isSelected: true),
             Line(id: 2, text: "action Decrement", select: .nop, cursorOffset: "".startIndex, isSelected: false),
             Line(id: 300, text: "state Counter: Int = 0", select: .nop, cursorOffset: "".startIndex, isSelected: false)
         ])

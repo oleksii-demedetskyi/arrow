@@ -2,6 +2,7 @@ struct AppState {
     var lines: [String] = []
     var highlightedLine: Int = 0
     var cursorOffset: String.Index = "".startIndex
+    var lexems: [Lexeme] = []
     
     var currentLine: String {
         get { lines[highlightedLine] }
@@ -27,6 +28,12 @@ struct InsertNewLine: Action {}
 
 struct InsertText: Action {
     let text: String
+}
+
+@testable import Parser
+
+struct LexerDidSuccess: Action {
+    let lexems: [Lexeme]
 }
 
 struct DeleteBackward: Action {}
@@ -79,6 +86,10 @@ func reduce(state: inout AppState, action: Action) {
             state.cursorOffset = state.currentLine.index(before: state.cursorOffset)
             state.currentLine.remove(at: state.cursorOffset)
         }
+        
+    case let action as LexerDidSuccess:
+        print("Receive", action.lexems.count)
+        state.lexems = action.lexems
     
     default:
         break
@@ -108,9 +119,10 @@ extension Strideable {
 import Combine
 
 class Store: ObservableObject {
-    @Published var state: AppState = AppState()
+    var state: AppState = AppState()
     
     func dispatch(action: Action) {
+        objectWillChange.send()
         reduce(state: &state, action: action)
     }
 }
@@ -121,6 +133,7 @@ struct Root<T: View>: View {
     let connect: (AppState, @escaping (Action) -> ()) -> T
     
     var body: T {
-        connect(store.state, store.dispatch(action:))
+        print("Display", store.state.lexems.count)
+        return connect(store.state, store.dispatch(action:))
     }
 }

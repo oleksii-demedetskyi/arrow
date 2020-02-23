@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		DE99BD0823FFF794007583ED /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD0723FFF794007583ED /* Store.swift */; };
 		DE99BD0A240166E9007583ED /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD09240166E9007583ED /* Command.swift */; };
+		DE99BD0D2401AAF1007583ED /* Parser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE99BD0C2401AAF1007583ED /* Parser.framework */; };
+		DE99BD0E2401AAF1007583ED /* Parser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE99BD0C2401AAF1007583ED /* Parser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DE99BD132402640B007583ED /* LexemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD122402640B007583ED /* LexemeView.swift */; };
 		DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1423F0554A0027D192 /* AppDelegate.swift */; };
 		DED16E1723F0554A0027D192 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1623F0554A0027D192 /* Document.swift */; };
 		DED16E1923F0554A0027D192 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1823F0554A0027D192 /* Editor.swift */; };
@@ -28,9 +31,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DE99BD0F2401AAF1007583ED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DE99BD0E2401AAF1007583ED /* Parser.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		DE99BD0723FFF794007583ED /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		DE99BD09240166E9007583ED /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		DE99BD0C2401AAF1007583ED /* Parser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Parser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE99BD122402640B007583ED /* LexemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexemeView.swift; sourceTree = "<group>"; };
 		DED16E1123F0554A0027D192 /* Workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED16E1423F0554A0027D192 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED16E1623F0554A0027D192 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -50,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE99BD0D2401AAF1007583ED /* Parser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,12 +83,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE99BD0B2401AAF1007583ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE99BD0C2401AAF1007583ED /* Parser.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DED16E0823F0554A0027D192 = {
 			isa = PBXGroup;
 			children = (
 				DED16E1323F0554A0027D192 /* Workbench */,
 				DED16E2B23F0554B0027D192 /* WorkbenchTests */,
 				DED16E1223F0554A0027D192 /* Products */,
+				DE99BD0B2401AAF1007583ED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +113,7 @@
 		DED16E1323F0554A0027D192 /* Workbench */ = {
 			isa = PBXGroup;
 			children = (
+				DE99BD122402640B007583ED /* LexemeView.swift */,
 				DED16E1423F0554A0027D192 /* AppDelegate.swift */,
 				DED16E1623F0554A0027D192 /* Document.swift */,
 				DED16E1823F0554A0027D192 /* Editor.swift */,
@@ -125,6 +155,7 @@
 				DED16E0D23F0554A0027D192 /* Sources */,
 				DED16E0E23F0554A0027D192 /* Frameworks */,
 				DED16E0F23F0554A0027D192 /* Resources */,
+				DE99BD0F2401AAF1007583ED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,6 +249,7 @@
 			files = (
 				DED16E1723F0554A0027D192 /* Document.swift in Sources */,
 				DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */,
+				DE99BD132402640B007583ED /* LexemeView.swift in Sources */,
 				DED16E1923F0554A0027D192 /* Editor.swift in Sources */,
 				DE99BD0A240166E9007583ED /* Command.swift in Sources */,
 				DE99BD0823FFF794007583ED /* Store.swift in Sources */,
