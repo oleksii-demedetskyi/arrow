@@ -108,5 +108,16 @@ enum Fixture {
                 .assert, .state, .is, "11",
             .closedCurlyBrace
         ]
+        
+        static let ast: [TopLevelDefinition] = {
+            var parser = Parser(stream: tokens)
+            return try! parser.parseProgram()
+        }()
+        
+        static let program: Program = {
+            var program = Program()
+            try! program.append(topLevelDefinitions: ast)
+            return program
+        }()
     }
 }

@@ -11,6 +11,8 @@
 		DE5078AC23EF62080021C850 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078AB23EF62080021C850 /* Lexer.swift */; };
 		DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5078AD23EF62B20021C850 /* LexerTests.swift */; };
 		DE5E530F23D21C2C00902164 /* TestDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E530E23D21C2C00902164 /* TestDefinition.swift */; };
+		DE71C554240712D600EB79E1 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71C553240712D600EB79E1 /* Interpreter.swift */; };
+		DE71C55A240721A000EB79E1 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71C5592407219F00EB79E1 /* InterpreterTests.swift */; };
 		DEA8886523C8C38100664F88 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8886423C8C38100664F88 /* main.swift */; };
 		DEA8888B23D1C24A00664F88 /* Parser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA8888223D1C24A00664F88 /* Parser.framework */; };
 		DEA8889223D1C24A00664F88 /* Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA8888423D1C24A00664F88 /* Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -79,6 +81,8 @@
 		DE5078AB23EF62080021C850 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		DE5078AD23EF62B20021C850 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		DE5E530E23D21C2C00902164 /* TestDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDefinition.swift; sourceTree = "<group>"; };
+		DE71C553240712D600EB79E1 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
+		DE71C5592407219F00EB79E1 /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		DEA8886123C8C38100664F88 /* quiver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quiver; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA8886423C8C38100664F88 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		DEA8887923D1B60100664F88 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				DE5078AB23EF62080021C850 /* Lexer.swift */,
 				DED16E3B23F0C2590027D192 /* NonEmpty.swift */,
 				DEE5A98823FC8549002145E1 /* Program.swift */,
+				DE71C553240712D600EB79E1 /* Interpreter.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 				DE5078AD23EF62B20021C850 /* LexerTests.swift */,
 				DED16E3723F0BB290027D192 /* CounterFixture.swift */,
 				DED16E3923F0BCBD0027D192 /* Integrations.swift */,
+				DE71C5592407219F00EB79E1 /* InterpreterTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				DEA8889C23D1C2B500664F88 /* Token.swift in Sources */,
 				DEA888A423D1C68C00664F88 /* Parsers.swift in Sources */,
 				DE5078AC23EF62080021C850 /* Lexer.swift in Sources */,
+				DE71C554240712D600EB79E1 /* Interpreter.swift in Sources */,
 				DE5078AA23EF61A00021C850 /* Lexeme.swift in Sources */,
 				DED16E3C23F0C2590027D192 /* NonEmpty.swift in Sources */,
 				DEA888AF23D1E1F400664F88 /* ReduceDefinition.swift in Sources */,
@@ -371,6 +378,7 @@
 				DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */,
 				DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */,
 				DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */,
+				DE71C55A240721A000EB79E1 /* InterpreterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,4 +31,7 @@
    <FileRef
       location = "group:Stream-7.md">
    </FileRef>
+   <FileRef
+      location = "group:Stream-8.md">
+   </FileRef>
 </Workspace>

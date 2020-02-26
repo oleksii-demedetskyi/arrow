@@ -17,6 +17,19 @@
 				</dict>
 			</dict>
 		</dict>
+		<key>InterpreterTests</key>
+		<dict>
+			<key>testPerformanceExample()</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.028959</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Local Baseline</string>
+				</dict>
+			</dict>
+		</dict>
 		<key>LexerTests</key>
 		<dict>
 			<key>testPerformanceExample()</key>
