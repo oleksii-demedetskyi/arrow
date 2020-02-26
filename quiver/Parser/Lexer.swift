@@ -1,13 +1,13 @@
-struct Lexer {
+public struct Lexer {
     let scanner: Scanner
     
-    init(string: String) {
+    public init(string: String) {
         self.scanner = Scanner(string: string)
         self.scanner.caseSensitive = true
         self.scanner.charactersToBeSkipped = .whitespacesAndNewlines
     }
     
-    func scan() -> [Lexeme] {
+    public func scan() -> [Lexeme] {
         var result = [] as [Lexeme]
         
         while let lexeme = scanSomething() {

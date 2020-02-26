@@ -1,5 +1,5 @@
-struct Lexeme {
-    let token: Token
-    let range: Range<String.Index>
+public struct Lexeme {
+    public let token: Token
+    public let range: Range<String.Index>
 }
 

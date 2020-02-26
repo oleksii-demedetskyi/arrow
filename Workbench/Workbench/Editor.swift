@@ -25,8 +25,9 @@ extension AnyTransition {
 }
 
 struct Cursor: View {
+    let width: CGFloat
     var body: some View {
-        Rectangle().frame(width: 4)
+        Rectangle().frame(width: width)
             //.transition(.repeating(from: Opacity(0), to: Opacity(1)))
     }
 }
@@ -38,12 +39,11 @@ struct Line: View, Identifiable {
     let cursorOffset: String.Index
     let isSelected: Bool
     
-    
     var color: some View {
-        if (isSelected) {
-            return Color(.darkGray)
-        } else {
-            return Color(.clear)
+        Group {
+            if (isSelected) {
+                Color(.darkGray)
+            }
         }
     }
     
@@ -55,9 +55,9 @@ struct Line: View, Identifiable {
             }
             .frame(width: 40)
             if (isSelected) {
-                HStack(spacing: -2) {
+                HStack(spacing: -1) {
                     Text(text[..<cursorOffset])
-                    Cursor()
+                    Cursor(width: 2)
                     Text(text[cursorOffset...])
                 }
             } else {
@@ -78,17 +78,21 @@ struct Editor: View {
     
     var body: some View {
         // This is slow but with 0 spacing
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(lines) {
-                    $0
-                }
-            }
-            Spacer(minLength: 200)
-        }
+//        ScrollView {
+//            VStack(alignment: .leading, spacing: 0) {
+//                ForEach(lines) {
+//                    $0
+//                }
+//            }
+//            Spacer(minLength: 200)
+//        }
         
         // This is fast but list cannot handle 0 spacing.
-        // List(lines.indices) { self.lines[$0] }
+         List {
+            ForEach(lines.indices, id: \.self) {
+                self.lines[$0].listRowInsets(.init(top: 100, leading: 100, bottom: 100, trailing: 100))
+            }
+        }
     }
 }
 

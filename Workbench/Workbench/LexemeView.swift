@@ -1,4 +1,4 @@
-@testable import Parser
+import Parser
 import SwiftUI
 
 struct LexemeView: View {

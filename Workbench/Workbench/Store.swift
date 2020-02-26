@@ -30,7 +30,7 @@ struct InsertText: Action {
     let text: String
 }
 
-@testable import Parser
+import Parser
 
 struct LexerDidSuccess: Action {
     let lexems: [Lexeme]
@@ -43,6 +43,12 @@ func reduce(state: inout AppState, action: Action) {
         
     case let action as RenderFile:
         state.lines = action.contents.components(separatedBy: .newlines)
+        state.lines.append(contentsOf: state.lines)
+        state.lines.append(contentsOf: state.lines)
+        state.lines.append(contentsOf: state.lines)
+        state.lines.append(contentsOf: state.lines)
+        state.lines.append(contentsOf: state.lines)
+        
         
     case let action as HighlightLine:
         state.highlightedLine = action.index
@@ -88,7 +94,6 @@ func reduce(state: inout AppState, action: Action) {
         }
         
     case let action as LexerDidSuccess:
-        print("Receive", action.lexems.count)
         state.lexems = action.lexems
     
     default:
@@ -133,7 +138,6 @@ struct Root<T: View>: View {
     let connect: (AppState, @escaping (Action) -> ()) -> T
     
     var body: T {
-        print("Display", store.state.lexems.count)
         return connect(store.state, store.dispatch(action:))
     }
 }

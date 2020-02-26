@@ -9,7 +9,7 @@
 import Cocoa
 import SwiftUI
 import Combine
-@testable import Parser
+import Parser
 
 class Compiler: Subscriber {
     private let queue = DispatchQueue(label: "compiler")
@@ -21,17 +21,16 @@ class Compiler: Subscriber {
     var textHash: Int = 0
     
     func receive(_: ()) -> Subscribers.Demand {
-        queue.async {
-            let text = self.store.state.lines.joined(separator: "\n")
-            guard text.hashValue != self.textHash else { return }
-            self.textHash = text.hashValue
-            
-            let lexems = Lexer(string: text).scan()
-            
+        //queue.async {
             DispatchQueue.main.async {
+                let text = self.store.state.lines.joined(separator: "\n")
+                guard text.hashValue != self.textHash else { return }
+                self.textHash = text.hashValue
+                
+                let lexems = Lexer(string: text).scan()
                 self.store.dispatch(action: LexerDidSuccess(lexems: lexems))
             }
-        }
+        //}
         
         return .unlimited
     }
@@ -48,6 +47,18 @@ class Compiler: Subscriber {
 
 let sharedStore = Store()
 
+
+struct LexemesList: View {
+    let lexems: [Lexeme]
+    var body: some View {
+        List {
+            ForEach(lexems.indices, id: \.self) { idx in
+                LexemeView(lexeme: self.lexems[idx])
+            }
+        }
+    }
+}
+
 class Document: NSDocument {
     // Use proper init
     let store = sharedStore
@@ -56,9 +67,7 @@ class Document: NSDocument {
     var body: some View {
         Root(store: store) { state, dispatch in
             HStack(alignment: .top) {
-                List(state.lexems.indices, id:\.self) { idx in
-                    LexemeView(lexeme: state.lexems[idx])
-                }
+                LexemesList(lexems: state.lexems)
                 Editor(lines: state.lines.enumerated().map { line in
                     Line(
                         id: line.offset,
