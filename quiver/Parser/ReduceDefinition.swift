@@ -1,11 +1,11 @@
-struct StateReducersDefinition: Equatable {
-    let state: Substring
-    let reducers: NonEmpty<[SingleReduceDefinition]>
+public struct StateReducersDefinition: Equatable {
+    public let state: Substring
+    public let reducers: NonEmpty<[SingleReduceDefinition]>
 }
 
-struct SingleReduceDefinition: Equatable {
-    let action: [Substring]
-    let expressions: [ExpressionDefintion]
+public struct SingleReduceDefinition: Equatable {
+    public let action: [Substring]
+    public let expressions: [ExpressionDefintion]
 }
 
 extension Parser {

@@ -1,7 +1,7 @@
-struct StateDefinition: Equatable {
-    let name: Substring
-    let type: Substring
-    let value: Substring // Need to be more specific type
+public struct StateDefinition: Equatable {
+    public let name: Substring
+    public let type: Substring
+    public let value: Substring // Need to be more specific type
 }
 
 extension Parser {

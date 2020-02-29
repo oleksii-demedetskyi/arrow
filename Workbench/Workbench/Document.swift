@@ -11,74 +11,40 @@ import SwiftUI
 import Combine
 import Parser
 
-class Compiler: Subscriber {
-    private let queue = DispatchQueue(label: "compiler")
-    
-    func receive(subscription: Subscription) {
-        subscription.request(.unlimited)
-    }
-    
-    var textHash: Int = 0
-    
-    func receive(_: ()) -> Subscribers.Demand {
-        //queue.async {
-            DispatchQueue.main.async {
-                let text = self.store.state.lines.joined(separator: "\n")
-                guard text.hashValue != self.textHash else { return }
-                self.textHash = text.hashValue
-                
-                let lexems = Lexer(string: text).scan()
-                self.store.dispatch(action: LexerDidSuccess(lexems: lexems))
-            }
-        //}
-        
-        return .unlimited
-    }
-    
-    func receive(completion: Subscribers.Completion<Never>) {}
-    
+
+struct DocumentView: View {
     let store: Store
     
-    init(store: Store) {
-        self.store = store
-        store.objectWillChange.subscribe(self)
-    }
-}
-
-let sharedStore = Store()
-
-
-struct LexemesList: View {
-    let lexems: [Lexeme]
     var body: some View {
-        List {
-            ForEach(lexems.indices, id: \.self) { idx in
-                LexemeView(lexeme: self.lexems[idx])
+        Root(store: store) { state, dispatch in
+            VStack(alignment: .leading) {
+                HStack {
+                    Editor(lines: state.lines.enumerated().map { line in
+                        Line(
+                            id: line.offset,
+                            text: line.element,
+                            select: .bind(HighlightLine(index: line.offset), to: dispatch),
+                            cursorOffset: state.cursorOffset,
+                            isSelected: state.highlightedLine == line.offset
+                        )}
+                    )
+                    LexemesList(lexems: state.lexems)
+                    ASTView(ast: state.ast)
+                }
+                if (state.parserError != nil) {
+                    Text(state.parserError!.localizedDescription)
+                }
             }
         }
     }
 }
 
 class Document: NSDocument {
-    // Use proper init
-    let store = sharedStore
-    let compiler = Compiler(store: sharedStore)
+    let store = Store()
+    let compiler: Compiler
     
-    var body: some View {
-        Root(store: store) { state, dispatch in
-            HStack(alignment: .top) {
-                LexemesList(lexems: state.lexems)
-                Editor(lines: state.lines.enumerated().map { line in
-                    Line(
-                        id: line.offset,
-                        text: line.element,
-                        select: .bind(HighlightLine(index: line.offset), to: dispatch),
-                        cursorOffset: state.cursorOffset,
-                        isSelected: state.highlightedLine == line.offset
-                    )}
-                )
-            }
-        }
+    override init() {
+        self.compiler = Compiler(store: store)
     }
     
     override func makeWindowControllers() {
@@ -89,7 +55,7 @@ class Document: NSDocument {
             backing: .buffered, defer: false)
         window.center()
         window.store = store
-        window.contentView = NSHostingView(rootView: body)
+        window.contentView = NSHostingView(rootView: DocumentView(store: store))
         let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
     }

@@ -1,32 +1,32 @@
-struct TestDefinition: Equatable {
-    let name: [Substring] // Need to be collapsed into single one?
-    let state: Substring
-    let expressions: [TestExpression]
+public struct TestDefinition: Equatable {
+    public let name: [Substring] // Need to be collapsed into single one?
+    public let state: Substring
+    public let expressions: [TestExpression]
 }
 
-enum TestExpression: Equatable {
+public enum TestExpression: Equatable {
     case assertState(StateAssertExpression)
     case assignState(StateAssignmentExpression)
     case reduceExpression(ReduceExpression)
 }
 
-struct StateAssertExpression: Equatable {
-    let value: ValueDefinition
+public struct StateAssertExpression: Equatable {
+    public let value: ValueDefinition
 }
 
-struct ValueDefinition: Equatable {
-    enum Sign { case plus, minus }
-    let sign: Sign?
-    let value: Substring // Can be simple identifier or composite one.
+public struct ValueDefinition: Equatable {
+    public enum Sign { case plus, minus }
+    public let sign: Sign?
+    public let value: Substring // Can be simple identifier or composite one.
 }
 
-struct StateAssignmentExpression: Equatable {
-    let value: ValueDefinition
+public struct StateAssignmentExpression: Equatable {
+    public let value: ValueDefinition
 }
 
-struct ReduceExpression: Equatable {
-    let action: [Substring]
-    let value: Substring?
+public struct ReduceExpression: Equatable {
+    public let action: [Substring]
+    public let value: Substring?
 }
 
 extension Parser {

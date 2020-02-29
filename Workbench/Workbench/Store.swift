@@ -2,7 +2,11 @@ struct AppState {
     var lines: [String] = []
     var highlightedLine: Int = 0
     var cursorOffset: String.Index = "".startIndex
+    
     var lexems: [Lexeme] = []
+    
+    var parserError: Error?
+    var ast: AST = []
     
     var currentLine: String {
         get { lines[highlightedLine] }
@@ -36,6 +40,14 @@ struct LexerDidSuccess: Action {
     let lexems: [Lexeme]
 }
 
+struct ParserDidSuccess: Action {
+    let ast: AST
+}
+
+struct ParserDidFail: Action {
+    let error: Error
+}
+
 struct DeleteBackward: Action {}
 
 func reduce(state: inout AppState, action: Action) {
@@ -43,12 +55,6 @@ func reduce(state: inout AppState, action: Action) {
         
     case let action as RenderFile:
         state.lines = action.contents.components(separatedBy: .newlines)
-        state.lines.append(contentsOf: state.lines)
-        state.lines.append(contentsOf: state.lines)
-        state.lines.append(contentsOf: state.lines)
-        state.lines.append(contentsOf: state.lines)
-        state.lines.append(contentsOf: state.lines)
-        
         
     case let action as HighlightLine:
         state.highlightedLine = action.index
@@ -95,6 +101,13 @@ func reduce(state: inout AppState, action: Action) {
         
     case let action as LexerDidSuccess:
         state.lexems = action.lexems
+        
+    case let action as ParserDidSuccess:
+        state.ast = action.ast
+        state.parserError = nil
+        
+    case let action as ParserDidFail:
+        state.parserError = action.error
     
     default:
         break

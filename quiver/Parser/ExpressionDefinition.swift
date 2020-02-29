@@ -1,15 +1,15 @@
-struct ExpressionDefintion: Equatable {
+public struct ExpressionDefintion: Equatable {
     // let lhs: State ???
-    let `operator`: OperatorDefinition
-    let value: ExpressionRHS
+    public let `operator`: OperatorDefinition
+    public let value: ExpressionRHS
 }
 
-enum OperatorDefinition: Equatable {
+public enum OperatorDefinition: Equatable {
     case increment
     case decrement
 }
 
-enum ExpressionRHS: Equatable {
+public enum ExpressionRHS: Equatable {
     case identifier(Substring)
     case action
 }

@@ -12,6 +12,8 @@
 		DE99BD0D2401AAF1007583ED /* Parser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE99BD0C2401AAF1007583ED /* Parser.framework */; };
 		DE99BD0E2401AAF1007583ED /* Parser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE99BD0C2401AAF1007583ED /* Parser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE99BD132402640B007583ED /* LexemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE99BD122402640B007583ED /* LexemeView.swift */; };
+		DEBA2D1D240A687F008AD040 /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBA2D1C240A687F008AD040 /* Compiler.swift */; };
+		DEBA2D1F240A6ABD008AD040 /* ASTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBA2D1E240A6ABD008AD040 /* ASTView.swift */; };
 		DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1423F0554A0027D192 /* AppDelegate.swift */; };
 		DED16E1723F0554A0027D192 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1623F0554A0027D192 /* Document.swift */; };
 		DED16E1923F0554A0027D192 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E1823F0554A0027D192 /* Editor.swift */; };
@@ -50,6 +52,8 @@
 		DE99BD09240166E9007583ED /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		DE99BD0C2401AAF1007583ED /* Parser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Parser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE99BD122402640B007583ED /* LexemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexemeView.swift; sourceTree = "<group>"; };
+		DEBA2D1C240A687F008AD040 /* Compiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compiler.swift; sourceTree = "<group>"; };
+		DEBA2D1E240A6ABD008AD040 /* ASTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTView.swift; sourceTree = "<group>"; };
 		DED16E1123F0554A0027D192 /* Workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED16E1423F0554A0027D192 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED16E1623F0554A0027D192 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				DE99BD122402640B007583ED /* LexemeView.swift */,
 				DED16E1423F0554A0027D192 /* AppDelegate.swift */,
 				DED16E1623F0554A0027D192 /* Document.swift */,
+				DEBA2D1E240A6ABD008AD040 /* ASTView.swift */,
+				DEBA2D1C240A687F008AD040 /* Compiler.swift */,
 				DED16E1823F0554A0027D192 /* Editor.swift */,
 				DE99BD09240166E9007583ED /* Command.swift */,
 				DED16E1A23F0554B0027D192 /* Assets.xcassets */,
@@ -249,6 +255,8 @@
 			files = (
 				DED16E1723F0554A0027D192 /* Document.swift in Sources */,
 				DED16E1523F0554A0027D192 /* AppDelegate.swift in Sources */,
+				DEBA2D1D240A687F008AD040 /* Compiler.swift in Sources */,
+				DEBA2D1F240A6ABD008AD040 /* ASTView.swift in Sources */,
 				DE99BD132402640B007583ED /* LexemeView.swift in Sources */,
 				DED16E1923F0554A0027D192 /* Editor.swift in Sources */,
 				DE99BD0A240166E9007583ED /* Command.swift in Sources */,

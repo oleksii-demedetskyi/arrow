@@ -1,4 +1,4 @@
-enum TopLevelDefinition: Equatable {
+public enum TopLevelDefinition: Equatable {
     case action(ActionDefinition)
     case state(StateDefinition)
     case reduce(StateReducersDefinition)
@@ -15,7 +15,9 @@ extension Parser {
         return nil
     }
     
-    mutating func parseProgram() throws -> [TopLevelDefinition] {
+    public mutating func parseProgram() throws -> [TopLevelDefinition] {
         try parseMany { try $0.parseTopLevelDefinition() }
     }
 }
+
+public typealias AST = [TopLevelDefinition]

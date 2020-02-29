@@ -43,3 +43,14 @@ struct LexemeView: View {
         }
     }
 }
+
+struct LexemesList: View {
+    let lexems: [Lexeme]
+    var body: some View {
+        List {
+            ForEach(lexems.indices, id: \.self) { idx in
+                LexemeView(lexeme: self.lexems[idx])
+            }
+        }
+    }
+}

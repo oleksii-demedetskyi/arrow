@@ -1,7 +1,7 @@
 /// `action Increment` definition
-struct ActionDefinition: Equatable {
-    let name: [Substring]
-    let type: Substring?
+public struct ActionDefinition: Equatable {
+    public let name: [Substring]
+    public let type: Substring?
 }
 
 extension Parser {

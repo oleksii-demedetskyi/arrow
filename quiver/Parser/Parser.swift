@@ -1,12 +1,12 @@
 /// This structure can act as a view to original token stream.
 /// It can navigate in any direction, restore state or pointer and provide some capabilities to access current elements
-struct Parser {
+public struct Parser {
     /// single point of change if I need to go to `ArraySlice<Token>` for example.
-    typealias Collection = [Token]
-    typealias Index = Collection.Index
+    public typealias Collection = [Token]
+    public typealias Index = Collection.Index
     
     /// Stream can be created with a collection. Even empty collection will work
-    init(stream: Collection) {
+    public init(stream: Collection) {
         self.tokens = stream
         self.index = stream.startIndex
     }
