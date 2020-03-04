@@ -72,5 +72,8 @@ class ProgramTests: XCTestCase {
         XCTAssertEqual(program.state.count, 1)
         XCTAssertEqual(program.actions.count, 4)
         XCTAssertEqual(program.reducers.count, 4)
+        
+        XCTAssertEqual(program.tests.count, 1)
+        XCTAssertEqual(program.tests["Counter"]?.count, 4)
     }
 }

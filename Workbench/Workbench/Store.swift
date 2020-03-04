@@ -1,5 +1,5 @@
 struct AppState {
-    var lines: [String] = []
+    var lines: [String] = [""]
     var highlightedLine: Int = 0
     var cursorOffset: String.Index = "".startIndex
     

@@ -1,4 +1,4 @@
-struct StateValue {
+struct StateValue: Equatable {
     let type: Substring
     var value: String
 }
@@ -9,7 +9,7 @@ struct ActionValue {
 }
 
 struct ActionPayload {
-    let type: Substring
+    //let type: Substring
     let value: Substring
 }
 
@@ -37,8 +37,6 @@ struct EvaluationContext {
             guard let payload = action.payload else {
                 preconditionFailure("Cannot use action without payload")
             }
-            
-            precondition(payload.type == "Int")
             
             guard let rhsAmount = Int(payload.value) else {
                 preconditionFailure("Action payload is not convertible to Int")
@@ -80,7 +78,7 @@ class Interpreter {
         }
     }
     
-    private(set) var state: [StateIdentifier: StateValue]
+    var state: [StateIdentifier: StateValue]
     
     struct UnknownAction: Error {
         let action: ActionValue
@@ -92,14 +90,8 @@ class Interpreter {
     }
     
     func dispatch(action: ActionValue) throws {
-        guard let definition = program.actions[action.type] else {
+        guard program.actions[action.type] != nil else {
             throw UnknownAction(action: action)
-        }
-        
-        guard definition.type == action.payload?.type else {
-            throw ActionPayloadMismatch(
-                expectedType: definition.type,
-                actualType: action.payload?.type)
         }
         
         guard let reducers = program.reducers[action.type] else {

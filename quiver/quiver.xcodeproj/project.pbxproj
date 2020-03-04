@@ -34,6 +34,8 @@
 		DED16E3C23F0C2590027D192 /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED16E3B23F0C2590027D192 /* NonEmpty.swift */; };
 		DEE5A98923FC8549002145E1 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5A98823FC8549002145E1 /* Program.swift */; };
 		DEE5A98B23FC88A7002145E1 /* ProgramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5A98A23FC88A7002145E1 /* ProgramTests.swift */; };
+		DEF70D0D240EDF390090A08C /* TestInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF70D0C240EDF390090A08C /* TestInterpreter.swift */; };
+		DEF70D0F240EE4580090A08C /* TestInterpeterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF70D0E240EE4580090A08C /* TestInterpeterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,8 @@
 		DED16E3B23F0C2590027D192 /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
 		DEE5A98823FC8549002145E1 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		DEE5A98A23FC88A7002145E1 /* ProgramTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramTests.swift; sourceTree = "<group>"; };
+		DEF70D0C240EDF390090A08C /* TestInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterpreter.swift; sourceTree = "<group>"; };
+		DEF70D0E240EE4580090A08C /* TestInterpeterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterpeterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +187,7 @@
 				DED16E3B23F0C2590027D192 /* NonEmpty.swift */,
 				DEE5A98823FC8549002145E1 /* Program.swift */,
 				DE71C553240712D600EB79E1 /* Interpreter.swift */,
+				DEF70D0C240EDF390090A08C /* TestInterpreter.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				DED16E3723F0BB290027D192 /* CounterFixture.swift */,
 				DED16E3923F0BCBD0027D192 /* Integrations.swift */,
 				DE71C5592407219F00EB79E1 /* InterpreterTests.swift */,
+				DEF70D0E240EE4580090A08C /* TestInterpeterTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -356,6 +362,7 @@
 				DEA8889C23D1C2B500664F88 /* Token.swift in Sources */,
 				DEA888A423D1C68C00664F88 /* Parsers.swift in Sources */,
 				DE5078AC23EF62080021C850 /* Lexer.swift in Sources */,
+				DEF70D0D240EDF390090A08C /* TestInterpreter.swift in Sources */,
 				DE71C554240712D600EB79E1 /* Interpreter.swift in Sources */,
 				DE5078AA23EF61A00021C850 /* Lexeme.swift in Sources */,
 				DED16E3C23F0C2590027D192 /* NonEmpty.swift in Sources */,
@@ -378,6 +385,7 @@
 				DE5078AE23EF62B20021C850 /* LexerTests.swift in Sources */,
 				DED16E3A23F0BCBD0027D192 /* Integrations.swift in Sources */,
 				DEB45AE423E4E131009EE3B0 /* ParserIntegratedTest.swift in Sources */,
+				DEF70D0F240EE4580090A08C /* TestInterpeterTests.swift in Sources */,
 				DE71C55A240721A000EB79E1 /* InterpreterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

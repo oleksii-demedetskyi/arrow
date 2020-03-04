@@ -40,6 +40,7 @@ public struct Lexer {
         ]
         
         for scaner in scaners {
+            guard scanner.isAtEnd == false else { break }
             if let lexeme = scaner() { return lexeme }
         }
         
