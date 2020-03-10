@@ -52,7 +52,7 @@ public struct Lexer {
             let index = self.scanner.currentIndex
             guard let _ = self.scanner.scanString(string) else { return nil }
             
-            if canConnect {
+            if canConnect && self.scanner.isAtEnd == false {
                 let currentCharacter =
                 CharacterSet(charactersIn:
                     String(self.scanner.string[self.scanner.currentIndex]))
