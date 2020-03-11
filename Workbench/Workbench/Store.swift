@@ -64,9 +64,17 @@ struct TestResultsUpdate: Action {
     let test: TestInterpreter.Results
 }
 
+struct FireAction: Action {
+    let id: ActionIdentifier
+}
+
+struct ResetInterpreter: Action {}
+
 struct DeleteBackward: Action {}
 
 func reduce(state: inout AppState, action: Action) {
+    print("Action: ", action)
+    
     switch action {
         
     case let action as RenderFile:
@@ -136,6 +144,13 @@ func reduce(state: inout AppState, action: Action) {
         
     case let action as SemanticDidFail:
         state.parserError = action.error
+        
+    case let action as FireAction:
+        let value = ActionValue(type: action.id)
+        try! state.interpreter.dispatch(action: value)
+        
+    case is ResetInterpreter:
+        state.interpreter = Interpreter(program: state.program)
         
     default: break
     }

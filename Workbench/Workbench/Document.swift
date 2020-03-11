@@ -13,11 +13,14 @@ import Parser
 
 struct ProgramView: View {
     let program: Program
-    let interpretor: Interpreter
+    let currentState: [StateIdentifier: StateValue]
     let testResults: TestInterpreter.Results
+    let dispatch: CommandWith<ActionIdentifier>
+    let reset: Command
     
     func stateCurrentValue(id: StateIdentifier) -> String {
-        interpretor.state[id]?.value ?? "<nil>"
+        let result = currentState[id]?.value ?? "<nil>"
+        return result
     }
     
     var states: some View {
@@ -32,20 +35,13 @@ struct ProgramView: View {
         }
     }
     
-    func fire(action: ActionIdentifier) -> () -> () {
-        return {
-            let value = ActionValue(type: action)
-            try? self.interpretor.dispatch(action: value)
-        }
-    }
-    
     var actions: some View {
         VStack(alignment: .leading) {
             ForEach(Array(program.actions), id: \.key) { (key, value) in
                 HStack {
                     ActionDefinitionNode(node: value)
                     Spacer()
-                    Button(action: self.fire(action: key)) {
+                    Button(action: self.dispatch.bind(value: key).perform) {
                         Text("🚀")
                     }
                 }
@@ -81,9 +77,21 @@ struct ProgramView: View {
         }
     }
     
+    var controls: some View {
+        HStack {
+            Text("Interpreter").bold()
+            Spacer()
+            Button(action: reset.perform) {
+                Text("Reset")
+            }
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                controls
+                Divider()
                 states
                 Divider()
                 actions
@@ -95,30 +103,45 @@ struct ProgramView: View {
 }
 
 struct DocumentView: View {
-    let store: Store
+    let uuid = UUID() // Hack to force view re render in SwiftUI.
     
+    let state: AppState
+    let dispatch: (Action) -> ()
+    
+    var programView: some View {
+        return ProgramView(
+            program: state.program,
+            currentState: state.interpreter.state,
+            testResults: state.testResults,
+            dispatch: .bind(FireAction.init, to: dispatch),
+            reset: .bind(ResetInterpreter(), to: dispatch)
+        )
+    }
+    
+    var editor: some View {
+        Editor(lines: state.lines.enumerated().map { line in
+            Line(
+                id: line.offset,
+                text: line.element,
+                select: .bind(HighlightLine(index: line.offset), to: dispatch),
+                cursorOffset: state.cursorOffset,
+                isSelected: state.highlightedLine == line.offset
+            )}
+        )
+    }
+    
+    var error: some View {
+        Text(state.parserError?.localizedDescription ?? "No error").font(.title).padding([.leading, .trailing, .top], 20)
+    }
     
     var body: some View {
-        Root(store: store) { state, dispatch in
-            VStack(alignment: .leading) {
-                Text(state.parserError?.localizedDescription ?? "No error").font(.title).padding([.leading, .trailing, .top], 20)
-                HStack {
-                    ProgramView(program: state.program,
-                                interpretor: state.interpreter,
-                                testResults: state.testResults)
-                    
-                    Editor(lines: state.lines.enumerated().map { line in
-                        Line(
-                            id: line.offset,
-                            text: line.element,
-                            select: .bind(HighlightLine(index: line.offset), to: dispatch),
-                            cursorOffset: state.cursorOffset,
-                            isSelected: state.highlightedLine == line.offset
-                        )}
-                    )
-                    //LexemesList(lexems: state.lexems)
-                    ASTView(ast: state.ast)
-                }
+        return VStack(alignment: .leading) {
+            error
+            HStack {
+                programView
+                editor
+                //LexemesList(lexems: state.lexems)
+                ASTView(ast: state.ast)
             }
         }
     }
@@ -140,7 +163,11 @@ class Document: NSDocument {
             backing: .buffered, defer: false)
         window.center()
         window.store = store
-        window.contentView = NSHostingView(rootView: DocumentView(store: store))
+        window.contentView = NSHostingView(rootView:
+            Root(store: store) {
+                DocumentView(state: $0, dispatch: $1)
+            }
+        )
         let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
     }
