@@ -1,16 +1,26 @@
-struct StateValue: Equatable {
-    let type: Substring
-    var value: String
+public struct StateValue: Equatable {
+    public let type: Substring
+    public var value: String
 }
 
-struct ActionValue {
-    let type: ActionIdentifier
-    let payload: ActionPayload?
+public struct ActionValue {
+    public let type: ActionIdentifier
+    public let payload: ActionPayload?
+    
+    public init(type: ActionIdentifier,
+                payload: ActionPayload? = nil) {
+        self.type = type
+        self.payload = payload
+    }
 }
 
-struct ActionPayload {
+public struct ActionPayload {
     //let type: Substring
-    let value: Substring
+    public let value: Substring
+    
+    public init(value: Substring) {
+        self.value = value
+    }
 }
 
 struct EvaluationContext {
@@ -66,10 +76,10 @@ struct EvaluationContext {
     }
 }
 
-class Interpreter {
+public class Interpreter {
     let program: Program
     
-    init(program: Program) {
+    public init(program: Program) {
         self.program = program
         
         self.state = [:]
@@ -78,7 +88,7 @@ class Interpreter {
         }
     }
     
-    var state: [StateIdentifier: StateValue]
+    public var state: [StateIdentifier: StateValue]
     
     struct UnknownAction: Error {
         let action: ActionValue
@@ -89,7 +99,7 @@ class Interpreter {
         let actualType: Substring?
     }
     
-    func dispatch(action: ActionValue) throws {
+    public func dispatch(action: ActionValue) throws {
         guard program.actions[action.type] != nil else {
             throw UnknownAction(action: action)
         }

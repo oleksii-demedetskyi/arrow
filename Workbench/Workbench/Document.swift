@@ -11,14 +11,102 @@ import SwiftUI
 import Combine
 import Parser
 
+struct ProgramView: View {
+    let program: Program
+    let interpretor: Interpreter
+    let testResults: TestInterpreter.Results
+    
+    func stateCurrentValue(id: StateIdentifier) -> String {
+        interpretor.state[id]?.value ?? "<nil>"
+    }
+    
+    var states: some View {
+        VStack(alignment: .leading) {
+            ForEach(Array(program.state), id: \.key) { (key, value) in
+                HStack {
+                    StateDefinitionNode(node: value)
+                    Spacer()
+                    Text(self.stateCurrentValue(id: key))
+                }
+            }
+        }
+    }
+    
+    func fire(action: ActionIdentifier) -> () -> () {
+        return {
+            let value = ActionValue(type: action)
+            try? self.interpretor.dispatch(action: value)
+        }
+    }
+    
+    var actions: some View {
+        VStack(alignment: .leading) {
+            ForEach(Array(program.actions), id: \.key) { (key, value) in
+                HStack {
+                    ActionDefinitionNode(node: value)
+                    Spacer()
+                    Button(action: self.fire(action: key)) {
+                        Text("🚀")
+                    }
+                }
+            }
+        }
+    }
+    
+    func testResult(for id: TestIdentifier) -> String {
+        for (_, tests) in testResults.tests {
+            guard let test = tests[id] else { continue }
+            
+            switch test {
+            case .assertFailed: return "❌"
+            case .error: return "⚠️"
+            case .ok: return "✅"
+            }
+        }
+        
+        return "❓"
+    }
+    
+    var tests: some View {
+        VStack(alignment: .leading) {
+            ForEach(Array(program.tests), id: \.key) { (key, value) in
+                ForEach(Array(value), id: \.key) { key, value in
+                    HStack {
+                        TestDefinitionNode(node: value)
+                        Spacer()
+                        Text(self.testResult(for: key))
+                    }
+                }
+            }
+        }
+    }
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                states
+                Divider()
+                actions
+                Divider()
+                tests
+            }.padding([.leading, .trailing], 20)
+        }
+    }
+}
 
 struct DocumentView: View {
     let store: Store
     
+    
     var body: some View {
         Root(store: store) { state, dispatch in
             VStack(alignment: .leading) {
+                Text(state.parserError?.localizedDescription ?? "No error").font(.title).padding([.leading, .trailing, .top], 20)
                 HStack {
+                    ProgramView(program: state.program,
+                                interpretor: state.interpreter,
+                                testResults: state.testResults)
+                    
                     Editor(lines: state.lines.enumerated().map { line in
                         Line(
                             id: line.offset,
@@ -28,11 +116,8 @@ struct DocumentView: View {
                             isSelected: state.highlightedLine == line.offset
                         )}
                     )
-                    LexemesList(lexems: state.lexems)
+                    //LexemesList(lexems: state.lexems)
                     ASTView(ast: state.ast)
-                }
-                if (state.parserError != nil) {
-                    Text(state.parserError!.localizedDescription)
                 }
             }
         }

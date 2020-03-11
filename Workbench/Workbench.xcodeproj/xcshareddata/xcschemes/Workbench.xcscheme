@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DEA8888123D1C24A00664F88"
+               BuildableName = "Parser.framework"
+               BlueprintName = "Parser"
+               ReferencedContainer = "container:../quiver/quiver.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "DED16E1023F0554A0027D192"
                BuildableName = "Workbench.app"
                BlueprintName = "Workbench"

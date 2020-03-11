@@ -210,7 +210,7 @@ struct TestDefinitionNode: View {
                 Syntax.Indent(level: 1)
                 VStack(alignment: .leading) {
                     ForEach(node.expressions.indices, id: \.self) { idx in
-                        TestExpressionNode(node: self.node.expressions[idx]).outlined
+                        TestExpressionNode(node: self.node.expressions[idx])
                     }
                 }
             }

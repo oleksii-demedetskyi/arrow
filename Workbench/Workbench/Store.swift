@@ -6,7 +6,11 @@ struct AppState {
     var lexems: [Lexeme] = []
     
     var parserError: Error?
+    
     var ast: AST = []
+    var program = Program()
+    var interpreter = Interpreter(program: Program())
+    var testResults = TestInterpreter.Results()
     
     var currentLine: String {
         get { lines[highlightedLine] }
@@ -46,6 +50,18 @@ struct ParserDidSuccess: Action {
 
 struct ParserDidFail: Action {
     let error: Error
+}
+
+struct SemanticDidSuccess: Action {
+    let program: Program
+}
+
+struct SemanticDidFail: Action {
+    let error: Error
+}
+
+struct TestResultsUpdate: Action {
+    let test: TestInterpreter.Results
 }
 
 struct DeleteBackward: Action {}
@@ -109,8 +125,19 @@ func reduce(state: inout AppState, action: Action) {
     case let action as ParserDidFail:
         state.parserError = action.error
     
-    default:
-        break
+    case let action as SemanticDidSuccess:
+        state.program = action.program
+        state.parserError = nil
+        
+        state.interpreter = Interpreter(program: action.program)
+        
+    case let action as TestResultsUpdate:
+        state.testResults = action.test
+        
+    case let action as SemanticDidFail:
+        state.parserError = action.error
+        
+    default: break
     }
     
     if state.lines.isEmpty { state.lines = [""] }

@@ -37,8 +37,7 @@ struct LexemeView: View {
     
     var body: some View {
         HStack {
-            Text(text)
-            Spacer()
+            Text(text).bold()
             Text(kind)
         }
     }

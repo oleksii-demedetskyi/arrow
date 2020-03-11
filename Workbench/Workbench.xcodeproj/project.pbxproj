@@ -117,6 +117,7 @@
 		DED16E1323F0554A0027D192 /* Workbench */ = {
 			isa = PBXGroup;
 			children = (
+				DE99BD0723FFF794007583ED /* Store.swift */,
 				DE99BD122402640B007583ED /* LexemeView.swift */,
 				DED16E1423F0554A0027D192 /* AppDelegate.swift */,
 				DED16E1623F0554A0027D192 /* Document.swift */,
@@ -129,7 +130,6 @@
 				DED16E2223F0554B0027D192 /* Info.plist */,
 				DED16E2323F0554B0027D192 /* Workbench.entitlements */,
 				DED16E1C23F0554B0027D192 /* Preview Content */,
-				DE99BD0723FFF794007583ED /* Store.swift */,
 			);
 			path = Workbench;
 			sourceTree = "<group>";

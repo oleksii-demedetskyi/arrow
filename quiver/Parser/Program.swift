@@ -1,22 +1,24 @@
 
-struct ActionIdentifier: Hashable {
-    let name: [Substring]
+public struct ActionIdentifier: Hashable {
+    public let name: [Substring]
 }
 
 extension ActionDefinition {
     var identifier: ActionIdentifier { ActionIdentifier(name: name) }
 }
 
-struct StateIdentifier: Hashable {
-    let name: [Substring]
+public struct StateIdentifier: Hashable {
+    public let name: [Substring]
+    
+    public var asString: String { name.joined(separator: " ") }
 }
 
 extension StateDefinition {
     var identifier: StateIdentifier { StateIdentifier(name: [name]) }
 }
 
-struct TestIdentifier: Hashable {
-    let name: [Substring]
+public struct TestIdentifier: Hashable {
+    public let name: [Substring]
 }
 
 extension TestDefinition {
@@ -24,12 +26,14 @@ extension TestDefinition {
     var stateIdentifier: StateIdentifier { StateIdentifier(name: [state]) }
 }
 
-struct Program {
-    var state: [StateIdentifier: StateDefinition] = [:]
-    var actions: [ActionIdentifier: ActionDefinition] = [:]
-    var tests: [StateIdentifier: [TestIdentifier: TestDefinition]] = [:]
+public struct Program {
+    public var state: [StateIdentifier: StateDefinition] = [:]
+    public var actions: [ActionIdentifier: ActionDefinition] = [:]
+    public var tests: [StateIdentifier: [TestIdentifier: TestDefinition]] = [:]
     
-    var reducers: [ActionIdentifier: [StateIdentifier: [SingleReduceDefinition]]] = [:]
+    public init() {}
+    
+    public var reducers: [ActionIdentifier: [StateIdentifier: [SingleReduceDefinition]]] = [:]
     
     struct StateAlreadyDefined: Error {
         let state: StateDefinition
@@ -84,7 +88,7 @@ struct Program {
         }
     }
     
-    mutating func append(topLevelDefinitions: [TopLevelDefinition]) throws {
+    public mutating func append(topLevelDefinitions: [TopLevelDefinition]) throws {
         // Add states and actions
         for definition in topLevelDefinitions {
             switch definition {

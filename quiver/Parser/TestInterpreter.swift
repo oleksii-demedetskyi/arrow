@@ -18,25 +18,26 @@ extension ValueDefinition {
     }
 }
 
-enum TestResult: Equatable {
+public enum TestResult: Equatable {
     case ok
     case assertFailed
     case error
 }
 
-class TestInterpreter {
+public class TestInterpreter {
     var program: Program
     
-    init(program: Program) {
+    public init(program: Program) {
         self.program = program
     }
     
-    struct Results: Equatable {
-        var tests: [StateIdentifier: [TestIdentifier: TestResult]]
+    public struct Results: Equatable {
+        public internal(set) var tests: [StateIdentifier: [TestIdentifier: TestResult]] = [:]
+        public init() {}
     }
     
-    func runAllTests() -> Results {
-        var results = Results(tests: [:])
+    public func runAllTests() -> Results {
+        var results = Results()
         for (stateIdentifier, testList) in program.tests {
             for (testIdentifer, test)  in testList {
                 let result = runTest(state: stateIdentifier, name: testIdentifer, body: test)
